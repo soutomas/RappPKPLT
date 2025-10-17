@@ -589,15 +589,15 @@ mod_HDM = mcode_cache("m2",mcode_HDM)
 # lims = c(0.025, 0.975)  # 95% PI
 lims = c(0.05, 0.95)  # 90% PI
 PIpc = (lims[2]-lims[1])*100  # PI%
-PIs = function(sim,dv)
-{
+PIs = function(sim,dv){
   sim$DV = sim[[dv]]
-  out = ddply(
-    sim, .(time), summarise,
-    PImd = median(DV, na.rm=TRUE),
-    PIlo = quantile(DV, lims[1], na.rm=TRUE),
-    PIup = quantile(DV, lims[2], na.rm=TRUE)
-  ) %>% as_tibble()
+  out = sim |>
+    group_by(time) |>
+    summarise(
+      PImd = median(DV, na.rm=TRUE),
+      PIlo = quantile(DV, lims[1], na.rm=TRUE),
+      PIup = quantile(DV, lims[2], na.rm=TRUE)
+    )
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -606,8 +606,8 @@ PIs = function(sim,dv)
 #' @return Nothing
 #' @export
 #' @examples
-#' myApp()
-myApp = function(){
+#' app()
+app = function(){
 
   # Define UI
   ui <- dashboardPage(  #2
