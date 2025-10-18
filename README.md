@@ -10,8 +10,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of RappPKPLT is to proivde a Shiny application for interactive
-PKPD simulation using a PK-platelet model.
+The goal of RappPKPLT is to provide a Shiny application for interactive
+simulation using a PK-platelet-GDF15 model.
 
 ## Citation
 
@@ -23,9 +23,7 @@ citation("RappPKPLT")
 #> To cite package 'RappPKPLT' in publications use:
 #> 
 #>   Sou T (2025). _RappPKPLT: Shiny Application for a PK-Platelet Model_.
-#>   R package version 0.0.0.9000, commit
-#>   a494cc205df49093570e6bbe6634901e330e36f3,
-#>   <https://github.com/soutomas/RappPKPLT>.
+#>   R package version 0.0.0.9000, <https://github.com/soutomas/RappPKPLT>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -50,12 +48,12 @@ pak::pak("soutomas/RappPKPLT")
 
 ## Example
 
-You can run a Shiny application for interaction simulation using a
-PK-platelet model:
+To run the Shiny application for interaction simulation using a
+PK-platelet-GDF15 model:
 
 ``` r
 library(RappPKPLT)
 
-# To run the Shiny app
+# To run the Shiny application
 app()
 ```
