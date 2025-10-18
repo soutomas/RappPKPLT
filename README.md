@@ -10,7 +10,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of RappPKPLT is to …
+The goal of RappPKPLT is to proivde a Shiny application for interactive
+PKPD simulation using a PK-platelet model.
 
 ## Citation
 
