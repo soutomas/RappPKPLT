@@ -1,5 +1,5 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : app.R
+# Filename : Rapp.R
 # Use      : Rapp for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
