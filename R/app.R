@@ -1,9 +1,9 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : RappPKPLT
+# Filename : app.R
 # Use      : Rapp for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-10-17
+# Updated  : 2025-10-18
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -601,12 +601,17 @@ PIs = function(sim,dv){
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#' Shiny app for PK-platelet simulation
+#' Run Shiny application for PK-platelet simulation
+#'
+#' Run Shiny application for interactive PKPD simulation using a PK-platelet model.
+#' The PKPD model simulation is powered by the [mrgsolve] package.
 #'
 #' @return Nothing
 #' @export
 #' @examples
+#' \dontrun{
 #' app()
+#' }
 app = function(){
 
   # Define UI

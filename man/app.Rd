@@ -2,7 +2,7 @@
 % Please edit documentation in R/app.R
 \name{app}
 \alias{app}
-\title{Shiny app for PK-platelet simulation}
+\title{Run Shiny application for PK-platelet simulation}
 \usage{
 app()
 }
@@ -10,8 +10,11 @@ app()
 Nothing
 }
 \description{
-Shiny app for PK-platelet simulation
+Run Shiny application for interactive PKPD simulation using a PK-platelet model.
+The PKPD model simulation is powered by the \link[mrgsolve:mrgsolve_package]{mrgsolve::mrgsolve} package.
 }
 \examples{
+\dontrun{
 app()
+}
 }

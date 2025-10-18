@@ -1,9 +1,9 @@
 Package: RappPKPLT
-Title: R Shiny Application for a PK-platelet model
+Title: Shiny Application for a PK-Platelet Model
 Version: 0.0.0.9000
 Authors@R: 
     person("Tomas", "Sou", , "tomas.sou@carexer.com", role = c("aut", "cre"))
-Description: An R Shiny application for interactive simulation using a PK-platelet model.
+Description: A Shiny application for interactive PKPD simulation using a PK-platelet model.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

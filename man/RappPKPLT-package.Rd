@@ -4,9 +4,9 @@
 \name{RappPKPLT-package}
 \alias{RappPKPLT}
 \alias{RappPKPLT-package}
-\title{RappPKPLT: R Shiny Application for a PK-platelet model}
+\title{RappPKPLT: Shiny Application for a PK-Platelet Model}
 \description{
-An R Shiny application for interactive simulation using a PK-platelet model.
+A Shiny application for interactive simulation using a PK-platelet model.
 }
 \author{
 \strong{Maintainer}: Tomas Sou \email{tomas.sou@carexer.com}
