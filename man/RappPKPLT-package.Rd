@@ -6,7 +6,15 @@
 \alias{RappPKPLT-package}
 \title{RappPKPLT: Shiny Application for a PK-Platelet Model}
 \description{
-A Shiny application for interactive simulation using a PK-platelet model.
+A Shiny application for interactive PKPD simulation using a PK-platelet model.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/soutomas/RappPKPLT}
+  \item Report bugs at \url{https://github.com/soutomas/RappPKPLT/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Tomas Sou \email{tomas.sou@carexer.com}
