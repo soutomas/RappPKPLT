@@ -19,19 +19,21 @@ Sou T (2025). *RappPKPLT: Shiny Application for a PK-Platelet Model*. R
 package version 0.0.0.9000, <https://github.com/soutomas/RappPKPLT>.
 
 ``` r
-citation("RappPKPLT")
+citation("RappPKPLT") 
 #> To cite package 'RappPKPLT' in publications use:
 #> 
-#>   Sou T (2025). _RappPKPLT: Shiny Application for a PK-Platelet Model_.
-#>   R package version 0.0.0.9000, <https://github.com/soutomas/RappPKPLT>.
+#>   Sou T (2025). _RappPKPLT: Shiny Application for a PK-Platelet-GDF15
+#>   Model_. R package version 0.0.0.9000, commit
+#>   bf3205d6a02a5d456bdf88147fe74c548bf29f28,
+#>   <https://github.com/soutomas/RappPKPLT>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
-#>     title = {RappPKPLT: Shiny Application for a PK-Platelet Model},
+#>     title = {RappPKPLT: Shiny Application for a PK-Platelet-GDF15 Model},
 #>     author = {Tomas Sou},
 #>     year = {2025},
-#>     note = {R package version 0.0.0.9000},
+#>     note = {R package version 0.0.0.9000, commit bf3205d6a02a5d456bdf88147fe74c548bf29f28},
 #>     url = {https://github.com/soutomas/RappPKPLT},
 #>   }
 ```
