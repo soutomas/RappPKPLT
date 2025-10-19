@@ -1,12 +1,12 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : Rapp.R
-# Use      : Rapp for PK-platelet simulation
+# Filename : Rapp2.R
+# Use      : Rapp for PK-platelet simulation for deployment
 # Author   : Tomas Sou
-# Created  : 2025-10-17
+# Created  : 2025-10-18
 # Updated  : 2025-10-18
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
-# - na
+# - For deployment on Shinyapps.io
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Updates
 # - na
@@ -18,6 +18,18 @@ rm(list=ls())
 
 # Today
 td = format(Sys.Date(), "%y%m%d")
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import
+
+library(mrgsolve)
+library(shiny)
+library(shinydashboard)
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(xgxr)
+library(scales)
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Options
@@ -612,7 +624,7 @@ PIs = function(sim,dv){
 #' \dontrun{
 #' app()
 #' }
-app = function(){
+# app = function(){
 
   # Define UI
   ui <- dashboardPage(  #2
@@ -679,7 +691,7 @@ app = function(){
                      collapsible = TRUE,
                      collapsed = TRUE,
                      tags$div(
-                       column(width = 6, selectInput(inputId = "DRUG",label = "Drug",choices = list("CGM"=1, "HDM"=2), selected=1))
+                       column(width = 6, selectInput(inputId = "DRUG",label = "Drug",choices = list("CGM"=1, "HDM"=2), selected=2))
                        # ,column(width = 12, checkboxInput(inputId = "KGD", label = "Dose per kg?", value = FALSE))
                        ,column(width = 6, selectInput(inputId = "ADM",label = "Admin",choices = list("Oral"=1, "IV"=2), selected=1))
                        ,column(width = 4, textInput(inputId = "DOSE",label = "Dose[mg]", value = 20))
@@ -1688,7 +1700,7 @@ app = function(){
 
   shinyApp(ui=ui, server=server, options=list(launch.browser=TRUE))
 
-}
+# }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Run app
