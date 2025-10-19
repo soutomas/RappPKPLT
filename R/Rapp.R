@@ -3,7 +3,7 @@
 # Use      : Rapp for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-10-18
+# Updated  : 2025-10-19
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -1570,8 +1570,9 @@ app = function(){
     output$plotPK = renderPlot({rplot11()})
 
     rplot1 = reactive({
-      p2 = rplotPLT()
-      pall = ggarrange(p2, ncol=1, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+      p1 = rplotPLT()
+      # p2 = rplotP1()
+      pall = ggarrange(p1, ncol=1, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
       pall = annotate_figure(
         p = pall
         ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
