@@ -15,8 +15,9 @@ simulation using a PK-platelet-GDF15 model.
 
 ## Citation
 
-Sou T (2025). *RappPKPLT: Shiny Application for a PK-Platelet Model*. R
-package version 0.0.0.9000, <https://github.com/soutomas/RappPKPLT>.
+Sou T (2025). *RappPKPLT: Shiny Application for a PK-Platelet-GDF15
+Model*. R package version 0.0.0.9000,
+<https://github.com/soutomas/RappPKPLT>.
 
 ``` r
 citation("RappPKPLT") 
