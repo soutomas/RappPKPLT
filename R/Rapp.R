@@ -601,10 +601,10 @@ PIs = function(sim,dv){
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#' Run Shiny application for PK-platelet simulation
+#' Run Shiny application for PK-platelet-GDF15 simulation
 #'
-#' Run Shiny application for interactive PKPD simulation using a PK-platelet model.
-#' The PKPD model simulation is powered by the [mrgsolve] package.
+#' Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
+#' The simulation is powered by the [mrgsolve] package.
 #'
 #' @return Nothing
 #' @export
@@ -839,7 +839,7 @@ app = function(){
                      downloadButton(outputId="csvPK", label="CSV"),
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
-                     h6("Developer: Tomas Sou (Mar2023)"),
+                     h6("Developed by Tomas Sou"),
                    )
 
             ), # close column

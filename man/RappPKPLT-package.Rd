@@ -4,9 +4,9 @@
 \name{RappPKPLT-package}
 \alias{RappPKPLT}
 \alias{RappPKPLT-package}
-\title{RappPKPLT: Shiny Application for a PK-Platelet Model}
+\title{RappPKPLT: Shiny Application for a PK-Platelet-GDF15 Model}
 \description{
-A Shiny application for interactive PKPD simulation using a PK-platelet model.
+A Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
 }
 \seealso{
 Useful links:
