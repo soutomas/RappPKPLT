@@ -11,7 +11,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of RappPKPLT is to provide a Shiny application for interactive
-simulation using a PK-platelet-GDF15 model.
+simulation using a PK-platelet-GDF15 model in patients with
+haematological malignancies and solid tumours.
 
 ## Citation
 
