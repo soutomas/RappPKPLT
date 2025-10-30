@@ -1,5 +1,5 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : Rapp2.R
+# Filename : .Rapp.R
 # Use      : Rapp for PK-platelet simulation for deployment
 # Author   : Tomas Sou
 # Created  : 2025-10-17
@@ -840,6 +840,7 @@ ui <- dashboardPage(  #2
                    # Help text
                    h6("Hint: Refresh browser to reset values"),
                    h6("Developed by Tomas Sou"),
+                   tags$a(href="https://github.com/soutomas/RappPKPLT","Github: RappPKPLT",target="_blank")
                  )
 
           ), # close column

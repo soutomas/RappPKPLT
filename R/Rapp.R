@@ -823,7 +823,7 @@ app = function(){
                      checkboxInput(inputId = "SUBTL", label = "Show subtitle", value = TRUE),
                      checkboxInput(inputId = "SHOWCAP", label = "Show caption", value = TRUE),
                      textInput(inputId = "CUSCAP", label = "Caption", value = ""),
-                     textInput(inputId = "NOTES", label = "Notes", value = "0,1,2,3,4,28,29,30,31,32,56,57,58,59,60,c(0,1,2,3,4,28,29,30,31,32,56,57,58,59,60)+28*3"),
+                     textInput(inputId = "NOTES", label = "Notes", value = ""),
 
                      # PNG file name
                      textInput(inputId = "pfname",label="File name", value=""),
@@ -840,6 +840,7 @@ app = function(){
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
                      h6("Developed by Tomas Sou"),
+                     tags$a(href="https://github.com/soutomas/RappPKPLT","Github: RappPKPLT",target="_blank")
                    )
 
             ), # close column
