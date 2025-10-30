@@ -840,7 +840,7 @@ ui <- dashboardPage(  #2
                    # Help text
                    h6("Hint: Refresh browser to reset values"),
                    h6("Developed by Tomas Sou"),
-                   tags$a(href="https://github.com/soutomas/RappPKPLT","Github",target="_blank")
+                   tags$a(href="https://github.com/soutomas/RappPKPLT","GitHub",target="_blank")
                  )
 
           ), # close column
