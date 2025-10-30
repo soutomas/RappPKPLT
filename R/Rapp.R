@@ -3,7 +3,7 @@
 # Use      : Rapp for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-10-19
+# Updated  : 2025-10-30
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -20,10 +20,22 @@ rm(list=ls())
 td = format(Sys.Date(), "%y%m%d")
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import
+
+# library(mrgsolve)
+# library(shiny)
+# library(shinydashboard)
+# library(dplyr)
+# library(ggplot2)
+# library(ggpubr)
+# library(xgxr)
+# library(scales)
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Options
 
 # Page title
-pgtitle = "PK-platelet"
+pgtitle = "PK-platelet-GDF15"
 
 # Plot
 ptwid = 1200  # width
@@ -840,7 +852,7 @@ app = function(){
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
                      h6("Developed by Tomas Sou"),
-                     tags$a(href="https://github.com/soutomas/RappPKPLT","Github: RappPKPLT",target="_blank")
+                     tags$a(href="https://github.com/soutomas/RappPKPLT","Github",target="_blank")
                    )
 
             ), # close column

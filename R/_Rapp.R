@@ -1,9 +1,9 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : .Rapp.R
+# Filename : _Rapp.R
 # Use      : Rapp for PK-platelet simulation for deployment
 # Author   : Tomas Sou
-# Created  : 2025-10-17
-# Updated  : 2025-10-19
+# Created  : 2025-10-19
+# Updated  : 2025-10-30
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # 2025-10-19: For deployment on Shinyapps.io
@@ -35,7 +35,7 @@ library(scales)
 # Options
 
 # Page title
-pgtitle = "PK-platelet"
+pgtitle = "PK-platelet-GDF15"
 
 # Plot
 ptwid = 1200  # width
@@ -823,7 +823,7 @@ ui <- dashboardPage(  #2
                    checkboxInput(inputId = "SUBTL", label = "Show subtitle", value = TRUE),
                    checkboxInput(inputId = "SHOWCAP", label = "Show caption", value = TRUE),
                    textInput(inputId = "CUSCAP", label = "Caption", value = ""),
-                   textInput(inputId = "NOTES", label = "Notes", value = "0,1,2,3,4,28,29,30,31,32,56,57,58,59,60,c(0,1,2,3,4,28,29,30,31,32,56,57,58,59,60)+28*3"),
+                   textInput(inputId = "NOTES", label = "Notes", value = ""),
 
                    # PNG file name
                    textInput(inputId = "pfname",label="File name", value=""),
@@ -840,7 +840,7 @@ ui <- dashboardPage(  #2
                    # Help text
                    h6("Hint: Refresh browser to reset values"),
                    h6("Developed by Tomas Sou"),
-                   tags$a(href="https://github.com/soutomas/RappPKPLT","Github: RappPKPLT",target="_blank")
+                   tags$a(href="https://github.com/soutomas/RappPKPLT","Github",target="_blank")
                  )
 
           ), # close column
