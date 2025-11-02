@@ -3,7 +3,7 @@
 # Use      : Rapp for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-10-30
+# Updated  : 2025-11-02
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -35,7 +35,7 @@ td = format(Sys.Date(), "%y%m%d")
 # Options
 
 # Page title
-pgtitle = "PK-platelet-GDF15"
+pgtitle = "PK-PLT-GDF"
 
 # Plot
 ptwid = 1200  # width
@@ -725,7 +725,7 @@ app = function(){
                    ),
 
                    box(
-                     title = "PLT",
+                     title = "Platelet",
                      width = NULL,
                      background = "black",
                      status = "primary",
@@ -851,8 +851,8 @@ app = function(){
                      downloadButton(outputId="csvPK", label="CSV"),
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
-                     h6("Developed by Tomas Sou"),
-                     tags$a(href="https://github.com/soutomas/RappPKPLT","GitHub",target="_blank")
+                     h6("Developed by",tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank"))
+                     # tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
                    )
 
             ), # close column
