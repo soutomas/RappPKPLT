@@ -710,8 +710,9 @@ app = function(){
                        ,column(width = 6, numericInput(inputId = "FU", label = "fu", value = 0.2))
                        ,column(width = 6, numericInput(inputId = "MIC", label = "Ct [ng/mL]", value = 100))
                        ,column(width = 3, h5("Show"))
-                       ,column(width = 3, checkboxInput(inputId = "SHFU", label = "Fu", value = FALSE))
-                       ,column(width = 3, checkboxInput(inputId = "CPU", label = "Cfree", value = FALSE))
+                       # ,column(width = 3, checkboxInput(inputId = "SHCP", label = "Cp", value = TRUE))
+                       ,column(width = 3, checkboxInput(inputId = "SHCPU", label = "Cpu", value = FALSE))
+                       ,column(width = 3, checkboxInput(inputId = "SHFU", label = "fu", value = FALSE))
                        ,column(width = 3, checkboxInput(inputId = "SHMIC", label = "Ct", value = FALSE))
                        ,column(width = 6, h5("Y-axis"))
                        ,column(width = 6, checkboxInput(inputId = "LOGPK", label = "Log-scale", value = FALSE))
@@ -1196,7 +1197,7 @@ app = function(){
       # tm  = unique(sim$time)
       shcmax = input$SHCMAX
       cmax = round(max(dd[[2]]),1)
-      if(input$CPU) cmax = round(max(fdd[[2]]),1)
+      if(input$SHCPU) cmax = round(max(fdd[[2]]),1)
       if(shcmax) {  # Cmin
         cmax.hline = geom_hline(yintercept=cmax, linetype="dashed", col="blue")
         cmax.anno = annotate(geom="text", x=0, y=cmax, label=paste0("Cmax = ",cmax), hjust=0, vjust=-0.5, col="grey50")
@@ -1205,17 +1206,17 @@ app = function(){
         cmax.hline = NULL
         cmax.anno = NULL
       }
-      if(input$CPU) dd = fdd
+      if(input$SHCPU) dd = fdd
       if(input$OBSPK) dobs = tibble(
         x = eval(parse(text=paste0("c(",input$PKX,")"))),
         y = eval(parse(text=paste0("c(",input$PKY,")"))),
       )
       plt =
         ggplot(data=dd, aes(x=time/24))+
-        {if(!input$CPU) geom_line(aes(y=PImd, linetype="CP"))}+
-        {if(!input$CPU && input$SHIPRED) geom_line(data=sim, aes(y=CP, group=ID, linetype="CP"), alpha=0.3, col="navy")}+
-        {if(input$CPU) geom_line(data=fdd, aes(y=PImd, linetype="CPU"))}+
-        {if(input$CPU && input$SHIPRED) geom_line(data=sim, aes(y=CPu, group=ID, alpha=0.5, col="blue", linetype="CPU"))}+
+        {if(!input$SHCPU) geom_line(aes(y=PImd, linetype="CP"))}+
+        {if(!input$SHCPU && input$SHIPRED) geom_line(data=sim, aes(y=CP, group=ID, linetype="CP"), alpha=0.3, col="navy")}+
+        {if(input$SHCPU) geom_line(data=fdd, aes(y=PImd, linetype="CPU"))}+
+        {if(input$SHCPU && input$SHIPRED) geom_line(data=sim, aes(y=CPu, group=ID, alpha=0.5, col="blue", linetype="CPU"))}+
         {if(input$OBSPK) geom_point(data=dobs, aes(x=x,y=y), col="red", size=2)}+
         geom_ribbon(aes(ymin=PIlo, ymax=PIup, fill="PI"), alpha=0.5)+
         cmax.hline + cmax.anno +  # Cmin line
