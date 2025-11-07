@@ -1,6 +1,6 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : Rapp.R
-# Use      : Rapp for PK-platelet simulation
+# Filename : app.R
+# Use      : Shiny application for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
 # Updated  : 2025-11-02
