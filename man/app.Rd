@@ -7,7 +7,7 @@
 app()
 }
 \value{
-Nothing
+Run the app.
 }
 \description{
 Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
