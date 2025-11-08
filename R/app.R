@@ -3,7 +3,7 @@
 # Use      : Shiny application for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-11-02
+# Updated  : 2025-11-08
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -613,12 +613,16 @@ PIs = function(sim,dv){
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+utils::globalVariables(c(
+  "CP","CPu","DV","GDF","ID","P1R","P1S","P5","PIlo","PImd","PIup","Ptot","evarm","y"
+))
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #' Run Shiny application for PK-platelet-GDF15 simulation
 #'
 #' Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
 #' The simulation is powered by the [mrgsolve] package.
 #'
-#' @return Nothing
+#' @return Run the app.
 #' @export
 #' @examples
 #' \dontrun{
@@ -1207,7 +1211,7 @@ app = function(){
         cmax.anno = NULL
       }
       if(input$SHCPU) dd = fdd
-      if(input$OBSPK) dobs = tibble(
+      if(input$OBSPK) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$PKX,")"))),
         y = eval(parse(text=paste0("c(",input$PKY,")"))),
       )
@@ -1259,7 +1263,7 @@ app = function(){
           labels = c(paste0(PIpc,"%PI")),
           values = c("grey")
         )+
-        xgx_annotate_status()+
+        xgxr::xgx_annotate_status()+
         theme_bw()+
         theme(
           plot.title = element_text(hjust=0.5,size=18,face="bold"),
@@ -1294,7 +1298,7 @@ app = function(){
       sim = Sim()
       dd = P5.PI()
       ylab = "Platelet count [10^9/L]"
-      if(input$OBSPLT) dobs = tibble(
+      if(input$OBSPLT) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$PLTX,")"))),
         y = eval(parse(text=paste0("c(",input$PLTY,")"))),
       )
@@ -1357,7 +1361,7 @@ app = function(){
           name = NULL,
           values = c(0,1,2,5)
         )+
-        xgx_annotate_status()+
+        xgxr::xgx_annotate_status()+
         theme_bw()+
         theme(
           plot.title = element_text(hjust=0.5, size=18, face="bold"),
@@ -1393,7 +1397,7 @@ app = function(){
       ddR = P1R.PI()
       ddPtot = Ptot.PI()
       ylab = "Cell count [10^9/L]"
-      if(input$OBSPLT) dobs = tibble(
+      if(input$OBSPLT) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$PLTX,")"))),
         y = eval(parse(text=paste0("c(",input$PLTY,")"))),
       )
@@ -1498,7 +1502,7 @@ app = function(){
       sim = Sim()
       dd = GDF.PI()
       ylab = "Serum GDF-15 level [pg/mL]"
-      if(input$OBSGDF) dobs = tibble(
+      if(input$OBSGDF) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$GDFX,")"))),
         y = eval(parse(text=paste0("c(",input$GDFY,")"))),
       )
@@ -1683,7 +1687,7 @@ app = function(){
       adm0 = input$ADM
       adm = ifelse(adm0==1, "Oral", ifelse(adm0==2, "IV", NA))
       sim = Sim()
-      out = tibble(
+      out = tibble::tibble(
         TIME = sim$time,
         CPtotal = sim$CP,
         CPunit = "ng/mL",
