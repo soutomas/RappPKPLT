@@ -25,8 +25,7 @@ citation("RappPKPLT")
 #> To cite package 'RappPKPLT' in publications use:
 #> 
 #>   Sou T (2025). _RappPKPLT: Shiny Application for a PK-Platelet-GDF15
-#>   Model_. R package version 0.0.0.9000, commit
-#>   bf3205d6a02a5d456bdf88147fe74c548bf29f28,
+#>   Model_. R package version 0.0.0.9000,
 #>   <https://github.com/soutomas/RappPKPLT>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -34,8 +33,7 @@ citation("RappPKPLT")
 #>   @Manual{,
 #>     title = {RappPKPLT: Shiny Application for a PK-Platelet-GDF15 Model},
 #>     author = {Tomas Sou},
-#>     year = {2025},
-#>     note = {R package version 0.0.0.9000, commit bf3205d6a02a5d456bdf88147fe74c548bf29f28},
+#>     note = {R package version 0.0.0.9000},
 #>     url = {https://github.com/soutomas/RappPKPLT},
 #>   }
 ```
@@ -52,12 +50,9 @@ pak::pak("soutomas/RappPKPLT")
 
 ## Example
 
-To run the Shiny application for interaction simulation using a
-PK-platelet-GDF15 model:
+To run the Shiny application:
 
 ``` r
 library(RappPKPLT)
-
-# To run the Shiny application
 app()
 ```
