@@ -42,12 +42,10 @@ pak::pak("soutomas/RappPKPLT")
 
 ## Example
 
-To run the Shiny application for interaction simulation using a PK-platelet-GDF15 model:
+To run the Shiny application:
 
 ```r 
 library(RappPKPLT)
-
-# To run the Shiny application
 app()
 ```
 

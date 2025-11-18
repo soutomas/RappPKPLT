@@ -1,9 +1,16 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Filename : app.R
+<<<<<<< HEAD
 # Use      : Shiny app for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
 # Updated  : 2025-10-18
+=======
+# Use      : Shiny application for PK-platelet simulation
+# Author   : Tomas Sou
+# Created  : 2025-10-17
+# Updated  : 2025-11-08
+>>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -613,12 +620,16 @@ PIs = function(sim,dv){
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+utils::globalVariables(c(
+  "CP","CPu","DV","GDF","ID","P1R","P1S","P5","PIlo","PImd","PIup","Ptot","evarm","y"
+))
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #' Run Shiny application for PK-platelet-GDF15 simulation
 #'
 #' Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
 #' The simulation is powered by the [mrgsolve] package.
 #'
-#' @return Nothing
+#' @return Run the app.
 #' @export
 #' @examples
 #' \dontrun{
@@ -710,8 +721,9 @@ app = function(){
                        ,column(width = 6, numericInput(inputId = "FU", label = "fu", value = 0.2))
                        ,column(width = 6, numericInput(inputId = "MIC", label = "Ct [ng/mL]", value = 100))
                        ,column(width = 3, h5("Show"))
-                       ,column(width = 3, checkboxInput(inputId = "SHFU", label = "Fu", value = FALSE))
-                       ,column(width = 3, checkboxInput(inputId = "CPU", label = "Cfree", value = FALSE))
+                       # ,column(width = 3, checkboxInput(inputId = "SHCP", label = "Cp", value = TRUE))
+                       ,column(width = 3, checkboxInput(inputId = "SHCPU", label = "Cpu", value = FALSE))
+                       ,column(width = 3, checkboxInput(inputId = "SHFU", label = "fu", value = FALSE))
                        ,column(width = 3, checkboxInput(inputId = "SHMIC", label = "Ct", value = FALSE))
                        ,column(width = 6, h5("Y-axis"))
                        ,column(width = 6, checkboxInput(inputId = "LOGPK", label = "Log-scale", value = FALSE))
@@ -725,7 +737,7 @@ app = function(){
                    ),
 
                    box(
-                     title = "PLT",
+                     title = "Platelet",
                      width = NULL,
                      background = "black",
                      status = "primary",
@@ -851,9 +863,14 @@ app = function(){
                      downloadButton(outputId="csvPK", label="CSV"),
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
+<<<<<<< HEAD
                      h6("Developed by",
                         tags$a(href="https://github.com/soutomas/RappPKPLT","Tomas Sou",target="_blank")
                      ),
+=======
+                     h6("Developed by",tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank"))
+                     # tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
+>>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
                    )
 
             ), # close column
@@ -1189,7 +1206,7 @@ app = function(){
       # tm  = unique(sim$time)
       shcmax = input$SHCMAX
       cmax = round(max(dd[[2]]),1)
-      if(input$CPU) cmax = round(max(fdd[[2]]),1)
+      if(input$SHCPU) cmax = round(max(fdd[[2]]),1)
       if(shcmax) {  # Cmin
         cmax.hline = geom_hline(yintercept=cmax, linetype="dashed", col="blue")
         cmax.anno = annotate(geom="text", x=0, y=cmax, label=paste0("Cmax = ",cmax), hjust=0, vjust=-0.5, col="grey50")
@@ -1198,17 +1215,17 @@ app = function(){
         cmax.hline = NULL
         cmax.anno = NULL
       }
-      if(input$CPU) dd = fdd
-      if(input$OBSPK) dobs = tibble(
+      if(input$SHCPU) dd = fdd
+      if(input$OBSPK) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$PKX,")"))),
         y = eval(parse(text=paste0("c(",input$PKY,")"))),
       )
       plt =
         ggplot(data=dd, aes(x=time/24))+
-        {if(!input$CPU) geom_line(aes(y=PImd, linetype="CP"))}+
-        {if(!input$CPU && input$SHIPRED) geom_line(data=sim, aes(y=CP, group=ID, linetype="CP"), alpha=0.3, col="navy")}+
-        {if(input$CPU) geom_line(data=fdd, aes(y=PImd, linetype="CPU"))}+
-        {if(input$CPU && input$SHIPRED) geom_line(data=sim, aes(y=CPu, group=ID, alpha=0.5, col="blue", linetype="CPU"))}+
+        {if(!input$SHCPU) geom_line(aes(y=PImd, linetype="CP"))}+
+        {if(!input$SHCPU && input$SHIPRED) geom_line(data=sim, aes(y=CP, group=ID, linetype="CP"), alpha=0.3, col="navy")}+
+        {if(input$SHCPU) geom_line(data=fdd, aes(y=PImd, linetype="CPU"))}+
+        {if(input$SHCPU && input$SHIPRED) geom_line(data=sim, aes(y=CPu, group=ID, alpha=0.5, col="blue", linetype="CPU"))}+
         {if(input$OBSPK) geom_point(data=dobs, aes(x=x,y=y), col="red", size=2)}+
         geom_ribbon(aes(ymin=PIlo, ymax=PIup, fill="PI"), alpha=0.5)+
         cmax.hline + cmax.anno +  # Cmin line
@@ -1251,7 +1268,7 @@ app = function(){
           labels = c(paste0(PIpc,"%PI")),
           values = c("grey")
         )+
-        xgx_annotate_status()+
+        xgxr::xgx_annotate_status()+
         theme_bw()+
         theme(
           plot.title = element_text(hjust=0.5,size=18,face="bold"),
@@ -1286,7 +1303,7 @@ app = function(){
       sim = Sim()
       dd = P5.PI()
       ylab = "Platelet count [10^9/L]"
-      if(input$OBSPLT) dobs = tibble(
+      if(input$OBSPLT) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$PLTX,")"))),
         y = eval(parse(text=paste0("c(",input$PLTY,")"))),
       )
@@ -1349,7 +1366,7 @@ app = function(){
           name = NULL,
           values = c(0,1,2,5)
         )+
-        xgx_annotate_status()+
+        xgxr::xgx_annotate_status()+
         theme_bw()+
         theme(
           plot.title = element_text(hjust=0.5, size=18, face="bold"),
@@ -1385,7 +1402,7 @@ app = function(){
       ddR = P1R.PI()
       ddPtot = Ptot.PI()
       ylab = "Cell count [10^9/L]"
-      if(input$OBSPLT) dobs = tibble(
+      if(input$OBSPLT) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$PLTX,")"))),
         y = eval(parse(text=paste0("c(",input$PLTY,")"))),
       )
@@ -1490,7 +1507,7 @@ app = function(){
       sim = Sim()
       dd = GDF.PI()
       ylab = "Serum GDF-15 level [pg/mL]"
-      if(input$OBSGDF) dobs = tibble(
+      if(input$OBSGDF) dobs = tibble::tibble(
         x = eval(parse(text=paste0("c(",input$GDFX,")"))),
         y = eval(parse(text=paste0("c(",input$GDFY,")"))),
       )
@@ -1675,7 +1692,7 @@ app = function(){
       adm0 = input$ADM
       adm = ifelse(adm0==1, "Oral", ifelse(adm0==2, "IV", NA))
       sim = Sim()
-      out = tibble(
+      out = tibble::tibble(
         TIME = sim$time,
         CPtotal = sim$CP,
         CPunit = "ng/mL",

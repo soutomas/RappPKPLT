@@ -20,5 +20,6 @@
 #' @importFrom mrgsolve mrgsim_df
 #' @importFrom mrgsolve param
 #' @importFrom mrgsolve zero_re
+#' @importFrom utils write.csv
 ## usethis namespace: end
 NULL

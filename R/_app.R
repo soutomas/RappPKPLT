@@ -1,5 +1,6 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Filename : _app.R
+<<<<<<< HEAD
 # Use      : Shiny app for PK-platelet simulation for deployment
 # Author   : Tomas Sou
 # Created  : 2025-10-17
@@ -7,6 +8,15 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
+=======
+# Use      : Shiny application for PK-platelet simulation for deployment
+# Author   : Tomas Sou
+# Created  : 2025-10-19
+# Updated  : 2025-11-02
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Notes
+# 2025-10-19: For deployment on Shinyapps.io
+>>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Updates
 # - na
@@ -42,7 +52,11 @@ ptwid = 1200  # width
 pthgt = 600  # height
 
 # PNG settings
+<<<<<<< HEAD
 pngname = ""
+=======
+pngname = "PLT"
+>>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Model
@@ -613,6 +627,7 @@ PIs = function(sim,dv){
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<<<<<<< HEAD
 #' #' Run Shiny application for PK-platelet-GDF15 simulation
 #' #'
 #' #' Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
@@ -954,10 +969,49 @@ PIs = function(sim,dv){
 
         tabItem(
           tabName = "ref",
+=======
+
+# Define UI
+ui <- dashboardPage(  #2
+
+  skin = "black",
+
+  dashboardHeader(
+    # titleWidth = 300,
+    title = pgtitle
+  ),
+
+  dashboardSidebar( #4
+
+    # width = 300,
+    collapsed = TRUE,
+
+    sidebarMenu(
+      menuItem(h5("Sample"), tabName="sample"),
+      menuItem(h5("Body"), tabName="body")
+    )
+
+  ),
+
+  dashboardBody(
+
+    tabItems(
+
+      tabItem(
+
+        tabName = "sample",
+
+        # h4(tags$b("PK parameters of animals:")),
+
+        #Scrollbar
+
+        fluidRow(
+>>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
 
           column(width = 2,
 
                  box(
+<<<<<<< HEAD
                    width = NULL,
                    background = "black",
                    title = "Developer",
@@ -1696,6 +1750,1043 @@ PIs = function(sim,dv){
   shinyApp(ui=ui, server=server, options=list(launch.browser=TRUE))
 
 # }
+=======
+
+                   width = NULL,
+                   background = "black",
+                   title = "Subject",
+                   status = "primary",
+                   solidHeader = TRUE,
+                   collapsible = TRUE,
+                   collapsed = TRUE,
+
+                   tags$div(
+                     column(width = 6, textInput(inputId="WT", label="WT [kg]", value = 70))
+                     ,column(width = 6, selectInput(inputId="HEM", label="HEM/SOL", choices=list("HEM"=1, "SOL"=0), selected=1))
+                     # ,column(width = 6, checkboxInput(inputId = "HEM", label = "HEM", value = TRUE))
+                     ,column(width = 12, checkboxInput(inputId="SHCOV", label="Show Covs", value=TRUE))
+                   )
+                 ),
+
+                 box(
+                   title = "PK",
+                   width = NULL,
+                   background = "black",
+                   status = "primary",
+                   solidHeader = TRUE,
+                   collapsible = TRUE,
+                   collapsed = TRUE,
+                   tags$div(
+                     column(width = 6, selectInput(inputId = "DRUG",label = "Drug",choices = list("CGM"=1, "HDM"=2), selected=1))
+                     # ,column(width = 12, checkboxInput(inputId = "KGD", label = "Dose per kg?", value = FALSE))
+                     ,column(width = 6, selectInput(inputId = "ADM",label = "Admin",choices = list("Oral"=1, "IV"=2), selected=1))
+                     ,column(width = 4, textInput(inputId = "DOSE",label = "Dose[mg]", value = 20))
+                     ,column(width = 4, textInput(inputId = "NDOSE",label = "NDoses", value = 5))
+                     ,column(width = 4, textInput(inputId = "TAU",label = "Tau[day]", value = 1))
+                     ,column(width = 12, textInput(inputId = "TDOSE", label = "Times [day] (add times by `,`)", value = "0,1,2,3,4,28,29,30,31,32,56,57,58,59,60,c(0,1,2,3,4,28,29,30,31,32,56,57,58,59,60)+28*3"))
+                     ,column(width = 6, textInput(inputId = "KA",label = "Ka [1/h]", value = ""))
+                     ,column(width = 6, textInput(inputId = "TLAG",label = "Tlag [h]", value = ""))
+                     ,column(width = 6, textInput(inputId = "Ktr",label = "Ktr [1/h]", value = ""))
+                     ,column(width = 6, textInput(inputId = "MTT",label = "MTT [h]", value = ""))
+                     ,column(width = 6, textInput(inputId = "V1",label = "V1/F [L]", value = ""))
+                     ,column(width = 6, textInput(inputId = "CL",label = "CL/F [L/h]", value = ""))
+                     # ,column(width = 12, numericInput(inputId = "INFH",label = "Infuion duration (h), NA=bolus",value = NA))
+                     ,column(width = 6, checkboxInput(inputId = "SHCMAX", label = "Cmax", value = FALSE))
+                     ,column(width = 6, checkboxInput(inputId = "SS", label = "Steady-state", value = FALSE))
+                     ,column(width = 6, numericInput(inputId = "FU", label = "fu", value = 0.2))
+                     ,column(width = 6, numericInput(inputId = "MIC", label = "Ct [ng/mL]", value = 100))
+                     ,column(width = 3, h5("Show"))
+                     ,column(width = 3, checkboxInput(inputId = "SHFU", label = "Fu", value = FALSE))
+                     ,column(width = 3, checkboxInput(inputId = "CPU", label = "Cfree", value = FALSE))
+                     ,column(width = 3, checkboxInput(inputId = "SHMIC", label = "Ct", value = FALSE))
+                     ,column(width = 6, h5("Y-axis"))
+                     ,column(width = 6, checkboxInput(inputId = "LOGPK", label = "Log-scale", value = FALSE))
+                     ,column(width = 4, numericInput(inputId = "LOWY", label = "Lower", value = NA))
+                     ,column(width = 4, numericInput(inputId = "UPPY", label = "Upper" , value = NA))
+                     ,column(width = 4, numericInput(inputId = "ACC", label = "Accuracy" , value = NA))
+                     ,column(width = 12, checkboxInput(inputId = "OBSPK", label = "Show OBS (add by `,`)", value = FALSE))
+                     ,column(width = 6, textInput(inputId = "PKX", label = "X", value = ""))
+                     ,column(width = 6, textInput(inputId = "PKY", label = "Y", value = ""))
+                   )
+                 ),
+
+                 box(
+                   title = "Platelet",
+                   width = NULL,
+                   background = "black",
+                   status = "primary",
+                   solidHeader = TRUE,
+                   collapsible = TRUE,
+                   collapsed = TRUE,
+                   tags$div(
+                     # ,column(width = 6, checkboxInput(inputId = "SHOBS", label = "Show growth", value = FALSE))
+                     column(width = 6, checkboxInput(inputId = "TRTPLT", label = "Drug effect", value = TRUE))
+                     ,column(width = 6, checkboxInput(inputId = "TPG", label = "TP grades", value = FALSE))
+                     ,column(width = 6, textInput(inputId = "PLTZ", label = "Baseline [G/L]", value = "28.0"))
+                     ,column(width = 6, textInput(inputId = "MMT", label = "MMT [h]", value = ""))
+                     ,column(width = 12, h5("Resistant clones"))
+                     ,column(width = 12, textInput(inputId = "kSR", label = "kSR [1/h]", value = ""))
+                     ,column(width = 12, h5("Effect on PLTZ"))
+                     ,column(width = 6, textInput(inputId = "KE0", label = "KE0 [1/h]", value = ""))
+                     ,column(width = 6, textInput(inputId = "SLP_PLTZ", label = "SLP_PLTZ", value = "0.05"))
+                     ,column(width = 12, h5("P1 prolifeation"))
+                     ,column(width = 12, textInput(inputId = "KPRO", label = "kpro [1/h] (ktrP = 4/MMT)", value = ""))
+                     ,column(width = 12, h5("PLT elimination effect"))
+                     ,column(width = 6, textInput(inputId = "KP1", label = "kP1 [1/h]", value = 0))
+                     ,column(width = 6, textInput(inputId = "KP5", label = "kP5 [1/h]", value = ""))
+                     ,column(width = 12, h5("Feedback"))
+                     ,column(width = 6, textInput(inputId = "SPW", label = "gamma", value = param(mod_HDM)$SLP))
+                     ,column(width = 6, textInput(inputId = "LPW", label = "Local PW", value = ""))
+                     ,column(width = 12, h5("HDM"))
+                     ,column(width = 12, textInput(inputId = "EMAX_PLT", label = "SLP (linear) or Emax", value = param(mod_HDM)$SLP))
+                     ,column(width = 12, textInput(inputId = "EC50_PLT", label = "EC50 [ng/mL] (0=linear)", value = ""))
+                     ,column(width = 12, h5("CGM"))
+                     ,column(width = 6, textInput(inputId = "SLPD", label = "Direct [mL/ng]", value = ""))
+                     ,column(width = 6, textInput(inputId = "SLPI", label = "Indirect [mL/ng]", value = ""))
+                     ,column(width = 12, checkboxInput(inputId = "PINF", label = "PLT transfusion (add times by `,`)", value = FALSE))
+                     ,column(width = 6, textInput(inputId = "ALP", label = "PLT dose [G/L]", value = 30))
+                     ,column(width = 6, textInput(inputId = "TALP", label = "Times [day]", value = 14))
+                     ,column(width = 6, h5("Y-axis"))
+                     ,column(width = 6, checkboxInput(inputId = "LOGPLT", label = "Log-scale", value = FALSE))
+                     ,column(width = 4, numericInput(inputId = "PLTLOWY",label = "Lower", value = 0))
+                     ,column(width = 4, numericInput(inputId = "PLTUPPY",label = "Upper" , value = 40))
+                     ,column(width = 4, numericInput(inputId = "PLTACC",label = "Accuracy" , value = NA))
+                     ,column(width = 12, checkboxInput(inputId = "OBSPLT", label = "Show OBS (add by `,`)", value = FALSE))
+                     ,column(width = 6, textInput(inputId = "PLTX", label = "X", value = "0,50,100,150"))
+                     ,column(width = 6, textInput(inputId = "PLTY", label = "Y", value = "276,277,275.5,274.5"))
+                   )
+                 ),
+
+                 box(
+                   title = "GDF-15",
+                   width = NULL,
+                   background = "black",
+                   status = "primary",
+                   solidHeader = TRUE,
+                   collapsible = TRUE,
+                   collapsed = TRUE,
+                   tags$div(
+                     column(width = 12, textInput(inputId = "GDFZ", label = "Baseline [pg/mL]", value = NA))
+                     ,column(width = 6, textInput(inputId = "KIN", label = "Kin [pg/h]", value = NA))
+                     ,column(width = 6, textInput(inputId = "KOUT", label = "Kout [1/h]", value = NA))
+                     ,column(width = 12, checkboxInput(inputId = "TRTGDF", label = "Drug effect", value = TRUE))
+                     ,column(width = 12, textInput(inputId = "EMAXG", label = "SLP or Emax (for HDM)", value = NA))
+                     ,column(width = 6, textInput(inputId = "EC50G", label = "EC50 [mL/ng]", value = NA))
+                     ,column(width = 6, textInput(inputId = "GAMG", label = "gamma", value = NA))
+                     ,column(width = 6, h5("Y-axis"))
+                     ,column(width = 6, checkboxInput(inputId = "LOGGDF", label = "Log-scale", value = FALSE))
+                     ,column(width = 4, numericInput(inputId = "GDFLOWY",label = "Lower", value = NA))
+                     ,column(width = 4, numericInput(inputId = "GDFUPPY",label = "Upper" , value = NA))
+                     ,column(width = 4, numericInput(inputId = "GDFACC",label = "Accuracy" , value = NA))
+                     ,column(width = 12, checkboxInput(inputId = "OBSGDF", label = "Show OBS (add by `,`)", value = FALSE))
+                     ,column(width = 6, textInput(inputId = "GDFX", label = "X", value = ""))
+                     ,column(width = 6, textInput(inputId = "GDFY", label = "Y", value = ""))
+                   )
+                 ),
+
+                 #  box(
+                 # title = "Dose prediction",
+                 #      width = NULL,
+                 #      background = "black",
+                 #      status = "primary",
+                 #      solidHeader = TRUE,
+                 #      collapsible = TRUE,
+                 #      collapsed = TRUE,
+                 #   tags$div(
+                 #     column(width = 12, h4("EBL-1463:"))
+                 #     ,column(width = 12, numericInput(inputId = "TGFMIC", label = "Target %fT>Ct", value = NA))
+                 #     ,column(width = 12, actionButton(inputId = "GETDOSE", label = "Predict dose"))
+                 #     ,column(width = 12, textOutput(outputId = "PFTAM"))
+                 #   )
+                 # ),
+
+                 box(
+
+                   title = "Options",
+                   width = NULL,
+                   background = "black",
+                   status = "primary",
+                   solidHeader = TRUE,
+                   collapsible = TRUE,
+                   collapsed = TRUE,
+
+                   # Simulation options
+                   textInput(inputId = "DELTA", label = "Delta [h]", value = 1),
+                   textInput(inputId = "DURA", label = "Duration [day]", value = 7),
+                   textInput(inputId = "NSUB", label = "Number of subjects", value = 1),
+
+                   # Plot options
+                   checkboxInput(inputId = "SHIPRED", label = "Show IPRED", value = FALSE),
+                   checkboxInput(inputId = "SHLGD", label = "Show legend", value = FALSE),
+                   checkboxInput(inputId = "SUBTL", label = "Show subtitle", value = TRUE),
+                   checkboxInput(inputId = "SHOWCAP", label = "Show caption", value = TRUE),
+                   textInput(inputId = "CUSCAP", label = "Caption", value = ""),
+                   textInput(inputId = "NOTES", label = "Notes", value = ""),
+
+                   # PNG file name
+                   textInput(inputId = "pfname",label="File name", value=""),
+
+                   # Button to download plot
+                   h5("Save:"),
+                   # downloadButton(outputId="plotDL1", label="PK"),
+                   # br(),br(),
+                   # downloadButton(outputId="plotDL2", label="PK-PLT"),
+                   # downloadButton(outputId="plotDL3", label="PK-PLT-BM"),
+                   # downloadButton(outputId="plotDL4", label="PK-GDF"),
+                   # br(),br(),
+                   downloadButton(outputId="csvPK", label="CSV"),
+                   # Help text
+                   h6("Hint: Refresh browser to reset values"),
+                   h6("Developed by",tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank"))
+                   # tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
+                 )
+
+          ), # close column
+
+          column(width = 10,
+
+                 tabsetPanel(
+                   type = "tabs"
+                   ,tabPanel(
+                     title = "PK",
+                     box(
+                       width = NULL,
+                       background = "black",
+                       title = "Plots",
+                       status = NULL,
+                       solidHeader = TRUE,
+                       collapsible = TRUE,
+                       align = "center",
+                       plotOutput(outputId="plotPK", width=ptwid, height=pthgt),
+                       downloadButton(outputId="plotDL1", label="PK")
+                     )
+                   )
+                   ,tabPanel(
+                     title = "PLT",
+                     box(
+                       width = NULL,
+                       background = "black",
+                       title = "Plots",
+                       status = NULL,
+                       solidHeader = TRUE,
+                       collapsible = TRUE,
+                       align = "center",
+                       plotOutput(outputId="plotPLT", width=ptwid, height=pthgt)
+                     )
+                   )
+                   ,tabPanel(
+                     title = "GDF",
+                     box(
+                       width = NULL,
+                       background = "black",
+                       title = "Plots",
+                       status = NULL,
+                       solidHeader = TRUE,
+                       collapsible = TRUE,
+                       align = "center",
+                       plotOutput(outputId="plotGDF", width=ptwid, height=pthgt)
+                     )
+                   )
+                   ,tabPanel(
+                     title = "PK-PLT",
+                     box(
+                       width = NULL,
+                       background = "black",
+                       title = "Plots",
+                       status = NULL,
+                       solidHeader = TRUE,
+                       collapsible = TRUE,
+                       align = "center",
+                       plotOutput(outputId="plotPKPLT", width=ptwid, height=pthgt),
+                       downloadButton(outputId="plotDL2", label="PK-PLT"),
+                       downloadButton(outputId="plotDL3", label="PK-PLT-BM")
+                     )
+                   )
+                   ,tabPanel(
+                     title = "PK-GDF",
+                     box(
+                       width = NULL,
+                       background = "black",
+                       title = "Plots",
+                       status = NULL,
+                       solidHeader = TRUE,
+                       collapsible = TRUE,
+                       align = "center",
+                       plotOutput(outputId="plotPKGDF", width=ptwid, height=pthgt),
+                       downloadButton(outputId="plotDL4", label="PK-GDF"),
+                     )
+                   )
+                   ,tabPanel(
+                     title = "Ref",
+                     box(
+                       width = NULL,
+                       background = "black",
+                       title = "Reference",
+                       status = NULL,
+                       solidHeader = TRUE,
+                       collapsible = TRUE,
+                       align = "center",
+                       h4("For CGM097:"),
+                       h5("Bauer et al. (2021). Br J Cancer. 2021 Aug;125(5):687-98. PMID: 34140638"),
+                       h5("`Pharmacokinetic-pharmacodynamic guided optimisation of dose and schedule of CGM097, an HDM2 inhibitor, in preclinical and clinical studies`"),
+                       tags$a(href="https://pubmed.ncbi.nlm.nih.gov/34140638/","https://pubmed.ncbi.nlm.nih.gov/34140638/",target="_blank")
+                     )
+                   )
+                 )
+          ) # close column
+        ) # close fluidRow
+      ), # close tabItem
+
+      tabItem(
+        tabName = "body",
+
+        column(width = 2,
+
+               box(
+                 width = NULL,
+                 background = "black",
+                 title = "Plots",
+                 status = "primary",
+                 solidHeader = TRUE,
+                 collapsible = TRUE,
+                 collapsed = FALSE,
+
+                 #Checkbox for log scale
+                 checkboxInput("LOGY2", label = "Log-y?", value = TRUE),
+
+                 #PNG file name
+                 textInput(inputId="pfname2",label="File name", value=""),
+
+                 #Button to download plot
+                 # downloadButton(outputId="plotDL2",label="Save"),
+
+                 #Help text
+                 h6("Hint: refresh browser to reset values")
+               )
+        ),
+
+        column(width = 10,
+
+               box(
+                 width = NULL,
+                 background="black",
+                 title = "Body",
+                 status = NULL,
+                 solidHeader = TRUE,
+                 collapsible = TRUE,
+                 align = "center",
+                 plotOutput(outputId="plot.tab2",width=800,height=700)
+               )
+        ) # close column
+      ) # close tabItem
+    ) # close tabItems
+  )	# closing "dashboardBody"
+)  # closing "ui"
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Define Server
+
+#Server
+server <-(function(input, output) {  #5
+
+  # Reactive parameters
+  # Spec = reactive({input$SPEC})  # 1=mouse; 2=human
+  Strn = reactive({input$STRN})  # 1=Eco; 2=Kpn
+  Mod = reactive({
+    if(input$DRUG==1) mod = mod_CGM
+    if(input$DRUG==2) mod = mod_HDM
+    return(mod)
+  })
+  Wt = reactive({
+    x = input$WT
+    return(x)
+  })
+  Subn = reactive({eval(parse(text=input$NSUB))})
+  Dura = reactive({eval(parse(text=input$DURA))})
+
+  # Individual parameters and covariates
+  Idata = reactive({
+    subn = Subn()
+    idata = data.frame(
+      ID = 1:subn,
+      evarm = 1)
+  })
+
+  # IPRED simulation function
+  # delta = 0.01  # time-step for sim and fT>MIC
+  fn.sim = function(amt = NULL){
+
+    # Dose calculation
+    Dose = reactive({
+      dose = amt
+      if(is.null(amt)) dose = eval(parse(text=input$DOSE))  # mg
+      # if(input$KGD) dose = dose * Wt()  # convert mg/kg to mg
+      return(dose)
+    })
+
+    # Dosing event dataset
+    # Evdata.mt1 = reactive({
+    #   wt = Wt()
+    #   tau = input$TAU
+    #   dura = Dura()
+    #   dose = Dose()
+    #   adm = as.numeric(input$ADM)
+    #   ndose = ceiling(dura/tau)
+    #   idata = Idata()
+    # if(input$SS) ss = 1 else ss = 0
+    #   ev1 = ev(amt=dose, addl=ndose-1, ii=tau, cmt=adm, tinf=input$INFH, ss=ss)  # cmt: 1=SC, 2=IV
+    #   # ev1 = ev(amt=dose,addl=ndose-1,ii=tau,cmt=adm)  # cmt: 1=IV
+    #   evall = seq(ev1)
+    #   evdata = assign_ev(list(evall),idata,evgroup="evarm")
+    # })
+
+    # Simulation
+    set.seed(12345)
+    out = reactive({
+      # evdata.all = Evdata.mt1()
+      # evdata.all = rbind(evdata2,evdata1)
+      # evdata = evdata.all %>% arrange(ID,time)
+      # idata = Idata()
+      tau = eval(parse(text=input$TAU))*24 # day => hr
+      dose = Dose()*1000 # mg => mcg
+      adm = ifelse(input$ADM==1,"A1","A2")
+      # ndose = ceiling(dura/tau)
+      ndose = eval(parse(text=input$NDOSE))
+      idata = Idata()
+      ss = 0
+      if(input$SS) ss = 1
+      evall = ev(amt=dose, addl=ndose-1, ii=tau, cmt=adm, ss=ss) # cmt: 1=oral, 2=IV
+      tdose = eval(parse(text=paste0("c(",input$TDOSE,")")))*24 # day => hr
+      if(length(tdose)>0) evall = ev(amt=dose, time=tdose, cmt=adm, ss=ss) # cmt: 1=oral, 2=IV
+      if(input$PINF) talp = eval(parse(text=paste0("c(",input$TALP,")")))*24 # day => hr
+      if(input$PINF) alp = eval(parse(text=input$ALP))
+      if(input$PINF) evall = evall + ev(amt=alp, cmt="P5", time=talp, tinf=0.5) # 0.5 h transfusion
+      delta = eval(parse(text=input$DELTA))
+      dura = eval(parse(text=input$DURA))*24 # day => hr
+      mod = Mod()
+      if(input$NSUB==1) mod =  mod %>% zero_re() # omit IIV
+      sim =
+        mod %>%
+        # data_set(evdata) %>%
+        idata_set(idata) %>%
+        carry_out(evarm) %>%
+        param(
+          DRUG = as.numeric(input$DRUG),
+          WT = eval(parse(text=input$WT)),
+          # HEM = ifelse(input$HEM, 1, 0),
+          HEM = as.numeric(input$HEM),
+          KA = ifelse(input$KA=="", param(mod)$KA, eval(parse(text=input$KA))),
+          TLAG = ifelse(input$TLAG=="", param(mod)$TLAG, eval(parse(text=input$TLAG))),
+          Ktr = ifelse(input$Ktr=="", param(mod)$Ktr, eval(parse(text=input$Ktr))),
+          MTT = ifelse(input$MTT=="", param(mod)$MTT, eval(parse(text=input$MTT))),
+          CL = ifelse(input$CL=="", param(mod)$CL, eval(parse(text=input$CL))),
+          V1 = ifelse(input$V1=="", param(mod)$V1, eval(parse(text=input$V1))),
+          FU = input$FU,
+          PLTZ = ifelse(input$PLTZ=="", param(mod)$PLTZ, eval(parse(text=input$PLTZ))),
+          MMT = ifelse(input$MMT=="", param(mod)$MMT, eval(parse(text=input$MMT))),
+          MMTsolid = ifelse(input$MMT=="", param(mod)$MMTsolid, eval(parse(text=input$MMT))),
+          LPW = ifelse(input$LPW=="", param(mod)$LPW, eval(parse(text=input$LPW))),
+          SPW = ifelse(input$SPW=="", param(mod)$SPW, eval(parse(text=input$SPW))),
+          KPRO = ifelse(input$KPRO=="", param(mod)$KPRO, ifelse(input$KPRO=="ktrP", -1, eval(parse(text=input$KPRO)))),
+          KP5 = ifelse(input$KP5=="", param(mod)$KP5, ifelse(input$KP5=="ktrP", -1, eval(parse(text=input$KP5)))),
+          KP1 = ifelse(input$KP1=="", param(mod)$KP1, eval(parse(text=input$KP1))),
+          kSR = ifelse(input$kSR=="", param(mod)$kSR, eval(parse(text=input$kSR))),
+          TRTPLT = ifelse(input$TRTPLT, 1, 0),
+          KE0 = ifelse(input$KE0=="", param(mod)$KE0, eval(parse(text=input$KE0))),
+          SLP_PLTZ = ifelse(input$SLP_PLTZ=="", param(mod)$SLP_PLTZ, eval(parse(text=input$SLP_PLTZ))),
+          SLPD = ifelse(input$SLPD=="", param(mod)$SLPD, eval(parse(text=input$SLPD))),
+          SLPI = ifelse(input$SLPI=="", param(mod)$SLPI, eval(parse(text=input$SLPI))),
+          EMAX_PLT = ifelse(input$EMAX_PLT=="", param(mod)$EMAX_PLT, eval(parse(text=input$EMAX_PLT))),
+          EC50_PLT = ifelse(input$EC50_PLT=="", param(mod)$EC50_PLT, eval(parse(text=input$EC50_PLT))),
+          TRTGDF = ifelse(input$TRTGDF, 1, 0),
+          GDFZ = ifelse(input$GDFZ=="", param(mod)$GDFZ, eval(parse(text=input$GDFZ))),
+          KIN = ifelse(input$KIN=="", param(mod)$KIN, eval(parse(text=input$KIN))),
+          KOUT = ifelse(input$KOUT=="", param(mod)$KOUT, eval(parse(text=input$KOUT))),
+          EMAXG = ifelse(input$EMAXG=="", param(mod)$EMAXG, eval(parse(text=input$EMAXG))),
+          EC50G = ifelse(input$EC50G=="", param(mod)$EC50G, eval(parse(text=input$EC50G))),
+          GAMG = ifelse(input$GAMG=="", param(mod)$GAMG, eval(parse(text=input$GAMG))),
+        ) %>%
+        mrgsim_df(delta=delta, end=dura, events=evall, obsonly=TRUE, tad=TRUE, hmax=0.1, atol=1e-10)
+    })
+
+  }
+  Sim = fn.sim()
+
+  # Auto fT>MIC matching for dose prediction
+  # observeEvent(input$GETDOSE, {
+  # 	sim = Sim()
+  #  tfTAM = input$TGFMIC
+  #  pdose = idose = input$DOSE
+  #   ftam = round(sum(sim$CPu>input$MIC)/(24/delta)*100,4)  # fT>MIC
+  #   if(!is.na(tfTAM)){
+  #   	dif = ftam - tfTAM
+  #   	dose = idose
+  #   	while(abs(dif)>0.1){
+  # 	  	if (dif > 0) dose = dose * 0.9
+  # 	  	if (dif <= -5) dose = dose * 1.1
+  # 	  	if (dif < 0 & dif > -5) dose = dose * 1.01
+  #    	Sim2 = fn.sim(amt = dose)
+  #    	sim2 = Sim2()
+  # 		ftam = round(sum(sim2$CPu>input$MIC)/(24/delta)*100,4)  # fT>MIC
+  # 		dif = ftam - tfTAM
+  #   	}
+  #  	pdose = round(dose)
+  #   }
+  #   unit = "mg"
+  #   if(input$KGD) unit = "mg/kg"
+  #   output$PFTAM = renderText({paste0("fT>",input$MIC, " mg/L = ", round(ftam,1), "%; dose = ", pdose, " ", unit," q",input$TAU ,"h")})  # fT>MIC
+  # })
+
+  # PIs
+  CP.PI = reactive({out = PIs(Sim(),"CP")})
+  CPu.PI = reactive({out = PIs(Sim(),"CPu")})
+  P5.PI = reactive({out = PIs(Sim(),"P5")})
+  P1S.PI = reactive({out = PIs(Sim(),"P1S")})
+  P1R.PI = reactive({out = PIs(Sim(),"P1R")})
+  Ptot.PI = reactive({out = PIs(Sim(),"Ptot")})
+  GDF.PI = reactive({out = PIs(Sim(),"GDF")})
+
+  # Plot - PK
+  rplotPK = function(){
+    if(input$LOGPK) logy = "log10" else logy = "identity"
+    if(input$ADM==2) adm = " IV" else if (input$ADM==1) adm = " oral" else adm = NULL
+    ndose = input$NDOSE
+    tdose = as.numeric(unlist(strsplit(input$TDOSE,split=",")))*24  # day => hr
+    if(length(tdose)>0) ndose = length(tdose)
+    stitle = paste0(input$DOSE," mg",adm)
+    if(length(tdose)==0) stitle = paste0(stitle," q",input$TAU,"d x",ndose)
+    hem = "SOL"
+    if(input$HEM==1) hem = "HEM"
+    if(input$SHCOV) stitle = paste0(stitle,"; ",input$WT," kg; ",hem)
+    if(input$SHFU)  stitle = paste0(stitle,"; fu = ",input$FU)
+    cap = paste0("n=",input$NSUB)
+    if(!input$CUSCAP=="") cap = bquote(.(input$CUSCAP))
+    if(!input$SHOWCAP) cap = NULL
+    if(!is.na(input$ACC)) accu = input$ACC else accu = 0.1
+    mic = input$MIC
+    shmic = input$SHMIC
+    if(shmic) {  # MIC
+      mic.hline = geom_hline(yintercept=mic,linetype="dashed",col="red")
+      mic.anno = annotate(geom="text", x=0, y=mic, label=paste0("Ct = ",mic), hjust=0, vjust=-0.5, col="grey50")
+    } else {
+      mic.hline = NULL
+      mic.anno = NULL
+    }
+    dura = Dura()
+    sim = Sim()
+    dd = CP.PI()
+    fdd = CPu.PI()
+    # ftam = round(sum(fdd %>% filter(time<=24) %>% extract2("PImd") >mic)/(24/input$DELTA)*100,1)  # fT>MIC
+    # if(input$SHMIC) stitle = paste0(stitle,"; MIC: ",input$MIC," ng/mL")
+    if(!input$SUBTL) stitle = NULL
+    # tm  = unique(sim$time)
+    shcmax = input$SHCMAX
+    cmax = round(max(dd[[2]]),1)
+    if(input$CPU) cmax = round(max(fdd[[2]]),1)
+    if(shcmax) {  # Cmin
+      cmax.hline = geom_hline(yintercept=cmax, linetype="dashed", col="blue")
+      cmax.anno = annotate(geom="text", x=0, y=cmax, label=paste0("Cmax = ",cmax), hjust=0, vjust=-0.5, col="grey50")
+    }
+    else {
+      cmax.hline = NULL
+      cmax.anno = NULL
+    }
+    if(input$CPU) dd = fdd
+    if(input$OBSPK) dobs = tibble(
+      x = eval(parse(text=paste0("c(",input$PKX,")"))),
+      y = eval(parse(text=paste0("c(",input$PKY,")"))),
+    )
+    plt =
+      ggplot(data=dd, aes(x=time/24))+
+      {if(!input$CPU) geom_line(aes(y=PImd, linetype="CP"))}+
+      {if(!input$CPU && input$SHIPRED) geom_line(data=sim, aes(y=CP, group=ID, linetype="CP"), alpha=0.3, col="navy")}+
+      {if(input$CPU) geom_line(data=fdd, aes(y=PImd, linetype="CPU"))}+
+      {if(input$CPU && input$SHIPRED) geom_line(data=sim, aes(y=CPu, group=ID, alpha=0.5, col="blue", linetype="CPU"))}+
+      {if(input$OBSPK) geom_point(data=dobs, aes(x=x,y=y), col="red", size=2)}+
+      geom_ribbon(aes(ymin=PIlo, ymax=PIup, fill="PI"), alpha=0.5)+
+      cmax.hline + cmax.anno +  # Cmin line
+      mic.hline + mic.anno + # MIC line
+      scale_x_continuous(
+        # breaks = seq(0, dura, 4),
+        limits = c(NA,NA)
+      )+
+      scale_y_continuous(
+        trans = logy,
+        # breaks=c(0,2,4,6,8,10,12),
+        limits = c(input$LOWY, input$UPPY),
+        oob = squish,
+        labels = comma_format(accuracy=accu)
+      )+
+      # {if(input$LOGPK) xgx_scale_y_log10(
+      #   limits = c(input$LOWY, input$UPPY),
+      #   oob = squish,
+      # )}+
+      labs(
+        title = ifelse(input$DRUG==1,"CGM097","Drug")
+        ,subtitle = stitle
+        ,caption = cap
+        ,x = "Time [day]"
+        ,y = "Drug concentration [ng/mL]" #ylab
+      )+
+      guides(
+        linetype = ifelse(input$SHLGD, "legend", "none"),
+        fill = ifelse(input$SHLGD, "legend", "none"),
+        colour = "none", # legd
+        alpha = "none"
+      )+
+      scale_linetype_manual(
+        name = NULL,
+        labels = c("CP"="Median","CPU"="Median (free)"),
+        values = c("CP"=1,"CPU"=2)
+      )+
+      scale_fill_manual(
+        name = NULL,
+        labels = c(paste0(PIpc,"%PI")),
+        values = c("grey")
+      )+
+      xgx_annotate_status()+
+      theme_bw()+
+      theme(
+        plot.title = element_text(hjust=0.5,size=18,face="bold"),
+        plot.subtitle = element_text(hjust=0.5,size=12),  # align subtitle
+        # plot.caption=element_text(hjust=0.5,size=14),
+        axis.text.x = element_text(size=11),
+        axis.text.y = element_text(size=11),
+        axis.title = element_text(size=12),
+        strip.text = element_text(size=12),
+        # legend.title=element_blank(),
+        legend.position = "bottom",
+        aspect.ratio = 1
+      )
+  }
+
+  # Plot - Platelet
+  rplotPLT = function(){
+    if(input$LOGPLT) logy = "log10" else logy = "identity"
+    cap = paste0("n=",input$NSUB)
+    if(!input$CUSCAP=="") cap = bquote(.(input$CUSCAP))
+    if(!input$SHOWCAP) cap = NULL
+    if(!is.na(input$PLTACC)) accu = input$PLTACC else accu = 0.1
+    mod = Mod()
+    trt = "; Drug = no"
+    if(input$TRTPLT && input$DRUG==1) trt = "; Drug = CGM"
+    if(input$TRTPLT && input$DRUG==2) trt = "; Drug = HDM"
+    ke0 = ifelse(input$KE0=="", param(mod)$KE0, input$KE0)
+    slp_pltz = ifelse(input$SLP_PLTZ=="", param(mod)$SLP_PLTZ, input$SLP_PLTZ)
+    stitle = paste0("kE0=",ke0,"; SLPpltz=",slp_pltz,trt)
+    if(!input$SUBTL) stitle = NULL
+    dura = Dura()
+    sim = Sim()
+    dd = P5.PI()
+    ylab = "Platelet count [10^9/L]"
+    if(input$OBSPLT) dobs = tibble(
+      x = eval(parse(text=paste0("c(",input$PLTX,")"))),
+      y = eval(parse(text=paste0("c(",input$PLTY,")"))),
+    )
+    plt =
+      ggplot(data=dd, aes(x=time/24))+
+      geom_line(aes(y=PImd, linetype="Median"))+
+      geom_ribbon(aes(ymin=PIlo, ymax=PIup, fill="PI"), alpha=0.5)+
+      {if(input$SHIPRED) geom_line(data=sim, aes(y=P5, group=ID), alpha=0.3, col="navy")}+
+      {if(input$TPG) geom_hline(yintercept=100, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=100, label=paste0("Grade 1: 100"), hjust=0, vjust=1, col=1)}+
+      {if(input$TPG) geom_hline(yintercept=75, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=75, label=paste0("Grade 2: 75"), hjust=0, vjust=1, col=1)}+
+      {if(input$TPG) geom_hline(yintercept=50, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=50, label=paste0("Grade 3: 50"), hjust=0, vjust=1, col=1)}+
+      {if(input$TPG) geom_hline(yintercept=25, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=25, label=paste0("Grade 4: 25"), hjust=0, vjust=1, col=1)}+
+      {if(input$OBSPLT) geom_point(data=dobs, aes(x=x,y=y), col="red", size=2)}+
+      scale_x_continuous(
+        # breaks = seq(0, dura, 4),
+        limits = c(NA,NA)
+      )+
+      scale_y_continuous(
+        trans = logy,
+        # breaks=c(0,2,4,6,8,10,12),
+        # breaks = trans_breaks("log10", function(x) 10^x),
+        # labels = trans_format("log10", math_format(10^.x)) ,
+        # labels = comma_format(accuracy=accu),
+        limits = c(input$PLTLOWY, input$PLTUPPY),
+        oob = squish,
+      )+
+      # {if(input$LOGPLT) xgx_scale_y_log10(
+      #   limits = c(input$PLTLOWY, input$PLTUPPY),
+      #   oob = squish,
+      # )}+
+      labs(
+        title = paste0("Platelet")
+        ,subtitle = stitle
+        ,caption = cap
+        ,x = "Time [day]"
+        ,y = ylab
+        ,shape = NULL
+      )+
+      guides(
+        linetype = ifelse(input$SHLGD, "legend", "none"),
+        fill = ifelse(input$SHLGD, "legend", "none"),
+        col = "none",
+        alpha = "none"
+      )+
+      scale_linetype_manual(
+        name = NULL,
+        labels = c("Median"),
+        values = c("solid")
+      )+
+      scale_fill_manual(
+        name = NULL,
+        labels = c(paste0(PIpc,"%PI")),
+        values = c("grey")
+      )+
+      scale_shape_manual(
+        name = NULL,
+        values = c(0,1,2,5)
+      )+
+      xgx_annotate_status()+
+      theme_bw()+
+      theme(
+        plot.title = element_text(hjust=0.5, size=18, face="bold"),
+        plot.subtitle = element_text(hjust=0.5, size=12),  # align subtitle
+        # plot.caption=element_text(hjust=0.5,size=14),
+        axis.text.x = element_text(size=11),
+        axis.text.y = element_text(size=11),
+        axis.title = element_text(size=12),
+        strip.text = element_text(size=12),
+        # legend.title=element_blank(),
+        legend.position = "bottom",
+        aspect.ratio = 1
+      )
+  }
+
+  # Plot - BM cells
+  rplotP1 = function(){
+    if(input$LOGPLT) logy = "log10" else logy = "identity"
+    cap = paste0("n=",input$NSUB)
+    if(!input$CUSCAP=="") cap = bquote(.(input$CUSCAP))
+    if(!input$SHOWCAP) cap = NULL
+    if(!is.na(input$PLTACC)) accu = input$PLTACC else accu = 0.1
+    mod = Mod()
+    trt = "; Drug = no"
+    if(input$TRTPLT && input$DRUG==1) trt = "; Drug = CGM"
+    if(input$TRTPLT && input$DRUG==2) trt = "; Drug = HDM"
+    ksr = ifelse(input$kSR=="", param(mod)$kSR, input$kSR)
+    stitle = paste0("kSR=",ksr,trt)
+    if(!input$SUBTL) stitle = NULL
+    dura = Dura()
+    sim = Sim()
+    ddS = P1S.PI()
+    ddR = P1R.PI()
+    ddPtot = Ptot.PI()
+    ylab = "Cell count [10^9/L]"
+    if(input$OBSPLT) dobs = tibble(
+      x = eval(parse(text=paste0("c(",input$PLTX,")"))),
+      y = eval(parse(text=paste0("c(",input$PLTY,")"))),
+    )
+    plt =
+      ddS %>%
+      ggplot(aes(x=time/24))+
+      geom_line(data=ddS, aes(y=PImd, linetype="Median", col="P1S"))+
+      geom_line(data=ddR, aes(y=PImd, linetype="Median", col="P1R"))+
+      geom_line(data=ddPtot, aes(y=PImd, linetype="Median", col="Ptot"))+
+      geom_ribbon(data=ddS, aes(ymin=PIlo, ymax=PIup, fill="P1S"), alpha=0.2)+
+      geom_ribbon(data=ddR, aes(ymin=PIlo, ymax=PIup, fill="P1R"), alpha=0.2)+
+      geom_ribbon(data=ddPtot, aes(ymin=PIlo, ymax=PIup, fill="Ptot"), alpha=0.2)+
+      {if(input$SHIPRED) geom_line(data=sim, aes(y=Ptot, group=ID, col="Ptot"), alpha=0.2)}+
+      {if(input$SHIPRED) geom_line(data=sim, aes(y=P1R, group=ID, col="P1R"), alpha=0.2)}+
+      {if(input$SHIPRED) geom_line(data=sim, aes(y=P1S, group=ID, col="P1S"), alpha=0.2)}+
+      {if(input$TPG) geom_hline(yintercept=100, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=100, label=paste0("Grade 1: 100"), hjust=0, vjust=1, col=1)}+
+      {if(input$TPG) geom_hline(yintercept=75, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=75, label=paste0("Grade 2: 75"), hjust=0, vjust=1, col=1)}+
+      {if(input$TPG) geom_hline(yintercept=50, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=50, label=paste0("Grade 3: 50"), hjust=0, vjust=1, col=1)}+
+      {if(input$TPG) geom_hline(yintercept=25, linetype="dashed", col=1)}+
+      {if(input$TPG) annotate(geom="text", x=0, y=25, label=paste0("Grade 4: 25"), hjust=0, vjust=1, col=1)}+
+      {if(input$OBSPLT) geom_point(data=dobs, aes(x=x,y=y), col="red", size=2)}+
+      scale_x_continuous(
+        # breaks = seq(0, dura, 4),
+        limits = c(NA,NA)
+      )+
+      scale_y_continuous(
+        trans = logy,
+        # breaks=c(0,2,4,6,8,10,12),
+        # breaks = trans_breaks("log10", function(x) 10^x),
+        # labels = trans_format("log10", math_format(10^.x)) ,
+        # labels = comma_format(accuracy=accu),
+        limits = c(input$PLTLOWY, input$PLTUPPY),
+        oob = squish,
+      )+
+      # {if(input$LOGPLT) xgx_scale_y_log10(
+      #   limits = c(input$PLTLOWY, input$PLTUPPY),
+      #   oob = squish,
+      # )}+
+      labs(
+        title = paste0("BM")
+        ,subtitle = stitle
+        ,caption = cap
+        ,x = "Time [day]"
+        ,y = ylab
+        ,shape = NULL
+      )+
+      guides(
+        linetype = ifelse(input$SHLGD, "legend", "none"),
+        fill = ifelse(input$SHLGD, "legend", "none"),
+        col = "none",
+        alpha = "none"
+      )+
+      scale_linetype_manual(
+        name = NULL,
+        labels = c("Median"),
+        values = c("solid")
+      )+
+      scale_colour_manual(
+        name = NULL,
+        values=c("P1S"="blue","P1R"="red","Ptot"="grey80")
+      )+
+      scale_fill_manual(
+        name = NULL,
+        values=c("P1S"="blue","P1R"="red","Ptot"="grey80")
+      )+
+      scale_shape_manual(
+        name = NULL,
+        values = c(0,1,2,5)
+      )+
+      xgx_annotate_status()+
+      theme_bw()+
+      theme(
+        plot.title = element_text(hjust=0.5, size=18, face="bold"),
+        plot.subtitle = element_text(hjust=0.5, size=12),  # align subtitle
+        # plot.caption=element_text(hjust=0.5,size=14),
+        axis.text.x = element_text(size=11),
+        axis.text.y = element_text(size=11),
+        axis.title = element_text(size=12),
+        strip.text = element_text(size=12),
+        # legend.title=element_blank(),
+        legend.position = "bottom",
+        aspect.ratio = 1
+      )
+  }
+
+  # Plot - GDF-15
+  rplotGDF = function(){
+    if(input$LOGGDF) logy = "log10" else logy = "identity"
+    cap = paste0("n=",input$NSUB)
+    if(!input$CUSCAP=="") cap = bquote(.(input$CUSCAP))
+    if(!input$SHOWCAP) cap = NULL
+    if(!is.na(input$GDFACC)) accu = input$GDFACC else accu = 0.1
+    mod = Mod()
+    trt = "Drug = no"
+    if(input$TRTGDF && input$DRUG==1) trt = "Drug = CGM"
+    if(input$TRTGDF && input$DRUG==2) trt = "Drug = HDM"
+    stitle = trt
+    if(!input$SUBTL) stitle = NULL
+    sim = Sim()
+    dd = GDF.PI()
+    ylab = "Serum GDF-15 level [pg/mL]"
+    if(input$OBSGDF) dobs = tibble(
+      x = eval(parse(text=paste0("c(",input$GDFX,")"))),
+      y = eval(parse(text=paste0("c(",input$GDFY,")"))),
+    )
+    plt =
+      ggplot(data=dd, aes(x=time/24))+
+      geom_line(aes(y=PImd, linetype="Median"))+
+      geom_ribbon(aes(ymin=PIlo, ymax=PIup, fill="PI"), alpha=0.5)+
+      {if(input$SHIPRED) geom_line(data=sim, aes(y=GDF, group=ID), alpha=0.3, col="navy")}+
+      {if(input$OBSGDF) geom_point(data=dobs, aes(x=x,y=y), col="red", size=2)}+
+      scale_x_continuous(
+        # breaks = seq(0, dura, 4),
+        limits = c(NA,NA)
+      )+
+      scale_y_continuous(
+        trans = logy,
+        # breaks=c(0,2,4,6,8,10,12),
+        # breaks = trans_breaks("log10", function(x) 10^x),
+        # labels = trans_format("log10", math_format(10^.x)) ,
+        limits = c(input$GDFLOWY, input$GDFUPPY),
+        oob = squish,
+        # labels = comma_format(accuracy=accu)
+      )+
+      # {if(input$LOGGDF)
+      # xgx_scale_y_log10(
+      #   limits = c(input$GDFLOWY, input$GDFUPPY),
+      #   oob = squish,
+      # )
+      # }+
+      labs(
+        title = paste0("GDF-15")
+        ,subtitle = stitle
+        ,caption = cap
+        ,x = "Time [day]"
+        ,y = ylab
+        ,shape = NULL
+      )+
+      guides(
+        linetype = ifelse(input$SHLGD, "legend", "none"),
+        fill = ifelse(input$SHLGD, "legend", "none"),
+        col = "none",
+        alpha = "none"
+      )+
+      scale_linetype_manual(
+        name = NULL,
+        labels = c("Median"),
+        values = c("solid")
+      )+
+      scale_fill_manual(
+        name = NULL,
+        labels = c(paste0(PIpc,"%PI")),
+        values = c("grey")
+      )+
+      scale_shape_manual(
+        name = NULL,
+        values = c(0,1,2,5)
+      )+
+      xgx_annotate_status()+
+      theme_bw()+
+      theme(
+        plot.title = element_text(hjust=0.5, size=18, face="bold"),
+        plot.subtitle = element_text(hjust=0.5, size=12),  # align subtitle
+        # plot.caption=element_text(hjust=0.5,size=14),
+        axis.text.x = element_text(size=11),
+        axis.text.y = element_text(size=11),
+        axis.title = element_text(size=12),
+        strip.text = element_text(size=12),
+        # legend.title=element_blank(),
+        legend.position = "bottom",
+        aspect.ratio = 1
+      )
+  }
+
+  # Combine all plots for layout
+  rplot11 = reactive({
+    p2 = rplotPK()
+    pall = ggarrange(p2, ncol=1, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+    pall = annotate_figure(
+      p = pall
+      ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
+    )
+    return(pall)
+  })
+  output$plotPK = renderPlot({rplot11()})
+
+  rplot1 = reactive({
+    p2 = rplotPLT()
+    pall = ggarrange(p2, ncol=1, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+    pall = annotate_figure(
+      p = pall
+      ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
+    )
+    return(pall)
+  })
+  output$plotPLT = renderPlot({rplot1()})
+
+  rplot2 = reactive({
+    p1 = rplotPK()
+    p2 = rplotPLT()
+    pall = ggarrange(p1,p2, ncol=2, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+    pall = annotate_figure(
+      p = pall
+      ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
+    )
+    return(pall)
+  })
+
+  rplot3 = reactive({
+    p1 = rplotPK()
+    p2 = rplotPLT()
+    p3 = rplotP1()
+    pall = ggarrange(p1,p2, p3, ncol=3, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+    pall = annotate_figure(
+      p = pall
+      ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
+    )
+    return(pall)
+  })
+  output$plotPKPLT = renderPlot({rplot3()})
+
+  rplot4 = reactive({
+    p1 = rplotPK()
+    p2 = rplotGDF()
+    pall = ggarrange(p1,p2, ncol=2, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+    pall = annotate_figure(
+      p = pall
+      ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
+    )
+    return(pall)
+  })
+  output$plotPKGDF = renderPlot({rplot4()})
+
+  rplot5 = reactive({
+    # p1 = rplotPK()
+    p2 = rplotGDF()
+    pall = ggarrange(p2, ncol=1, nrow=1, align="hv", legend="bottom", common.legend=FALSE)
+    pall = annotate_figure(
+      p = pall
+      ,bottom = text_grob(paste0("v",td), hjust=1.1, x=1, size=10)
+    )
+    return(pall)
+  })
+  output$plotGDF = renderPlot({rplot5()})
+
+  # Save plots
+  output$plotDL1 = downloadHandler(
+    filename = function(){
+      paste0("PK_",input$pfname,"_",td,".png")
+    },
+    content = function(file){
+      ggsave(file, plot=rplotPK(), width=7, height=7, scale=)
+    }
+  )
+  output$plotDL2 = downloadHandler(
+    filename = function(){
+      paste0("PKPLT_",input$pfname,"_",td,".png")
+    },
+    content = function(file){
+      ggsave(file, plot=rplot2(), width=12, height=7, scale=1)
+    }
+  )
+  output$plotDL3 = downloadHandler(
+    filename = function(){
+      paste0("PKPLTBM_",input$pfname,"_",td,".png")
+    },
+    content = function(file){
+      ggsave(file, plot=rplot3(), width=15, height=6, scale=1)
+    }
+  )
+  output$plotDL4 = downloadHandler(
+    filename = function(){
+      paste0("PKGDF_",input$pfname,"_",td,".png")
+    },
+    content = function(file){
+      ggsave(file, plot=rplot4(), width=12, height=7, scale=1)
+    }
+  )
+
+  # Save CSV
+  CsvPK = reactive({
+    tau = input$TAU
+    adm0 = input$ADM
+    adm = ifelse(adm0==1, "Oral", ifelse(adm0==2, "IV", NA))
+    sim = Sim()
+    out = tibble(
+      TIME = sim$time,
+      CPtotal = sim$CP,
+      CPunit = "ng/mL",
+      DRUG = ifelse(input$DRUG==1,"CGM","HDM"),
+      TAU = tau,
+      ADM = adm,
+    )
+  })
+  output$csvPK = downloadHandler(
+    filename = function(){paste0(pngname,"_",input$pfname,".csv")},
+    content = function(file){
+      write.csv(CsvPK(), file, row.names=FALSE)
+    }
+  )
+
+})  #5 closing server
+
+shinyApp(ui=ui, server=server, options=list(launch.browser=TRUE))
+>>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Run app

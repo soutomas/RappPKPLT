@@ -4,4 +4,4 @@
 ^README\.Rmd$
 ^\.github$
 ^R/rsconnect
-^R/.Rapp\.R$
+^R/_app\.R$
