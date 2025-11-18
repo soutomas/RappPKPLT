@@ -1,9 +1,9 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Filename : Rapp.R
-# Use      : Rapp for PK-platelet simulation
+# Filename : _app.R
+# Use      : Shiny app for PK-platelet simulation for deployment
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-10-30
+# Updated  : 2025-10-18
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -22,27 +22,27 @@ td = format(Sys.Date(), "%y%m%d")
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Import
 
-# library(mrgsolve)
-# library(shiny)
-# library(shinydashboard)
-# library(dplyr)
-# library(ggplot2)
-# library(ggpubr)
-# library(xgxr)
-# library(scales)
+library(mrgsolve)
+library(shiny)
+library(shinydashboard)
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(xgxr)
+library(scales)
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Options
 
 # Page title
-pgtitle = "PK-platelet-GDF15"
+pgtitle = "PK-PLT-GDF"
 
 # Plot
 ptwid = 1200  # width
 pthgt = 600  # height
 
 # PNG settings
-pngname = "PLT"
+pngname = ""
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Model
@@ -613,20 +613,20 @@ PIs = function(sim,dv){
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#' Run Shiny application for PK-platelet-GDF15 simulation
-#'
-#' Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
-#' The simulation is powered by the [mrgsolve] package.
-#'
-#' @return Nothing
-#' @export
-#' @examples
-#' \dontrun{
-#' app()
-#' }
-app = function(){
+#' #' Run Shiny application for PK-platelet-GDF15 simulation
+#' #'
+#' #' Run Shiny application for interactive PKPD simulation using a PK-platelet-GDF15 model.
+#' #' The simulation is powered by the [mrgsolve] package.
+#' #'
+#' #' @return Nothing
+#' #' @export
+#' #' @examples
+#' #' \dontrun{
+#' #' app()
+#' #' }
+#' app = function(){
 
-  # Define UI
+  # UI ----
   ui <- dashboardPage(  #2
 
     skin = "black",
@@ -642,8 +642,8 @@ app = function(){
       collapsed = TRUE,
 
       sidebarMenu(
-        menuItem(h5("Sample"), tabName="sample"),
-        menuItem(h5("Body"), tabName="body")
+        menuItem(h5("Simulation"), tabName="sim"),
+        menuItem(h5("Reference"), tabName="ref")
       )
 
     ),
@@ -654,7 +654,7 @@ app = function(){
 
         tabItem(
 
-          tabName = "sample",
+          tabName = "sim",
 
           # h4(tags$b("PK parameters of animals:")),
 
@@ -851,8 +851,9 @@ app = function(){
                      downloadButton(outputId="csvPK", label="CSV"),
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
-                     h6("Developed by Tomas Sou"),
-                     tags$a(href="https://github.com/soutomas/RappPKPLT","GitHub",target="_blank")
+                     h6("Developed by",
+                        tags$a(href="https://github.com/soutomas/RappPKPLT","Tomas Sou",target="_blank")
+                     ),
                    )
 
             ), # close column
@@ -952,30 +953,22 @@ app = function(){
         ), # close tabItem
 
         tabItem(
-          tabName = "body",
+          tabName = "ref",
 
           column(width = 2,
 
                  box(
                    width = NULL,
                    background = "black",
-                   title = "Plots",
+                   title = "Developer",
                    status = "primary",
                    solidHeader = TRUE,
                    collapsible = TRUE,
                    collapsed = FALSE,
 
-                   #Checkbox for log scale
-                   checkboxInput("LOGY2", label = "Log-y?", value = TRUE),
-
-                   #PNG file name
-                   textInput(inputId="pfname2",label="File name", value=""),
-
-                   #Button to download plot
-                   # downloadButton(outputId="plotDL2",label="Save"),
-
-                   #Help text
-                   h6("Hint: refresh browser to reset values")
+                   h6("Developed by",
+                     tags$a(href="https://github.com/soutomas/RappPKPLT","Tomas Sou",target="_blank")
+                   ),
                  )
           ),
 
@@ -984,7 +977,7 @@ app = function(){
                  box(
                    width = NULL,
                    background="black",
-                   title = "Body",
+                   title = "Reference",
                    status = NULL,
                    solidHeader = TRUE,
                    collapsible = TRUE,
@@ -1000,8 +993,8 @@ app = function(){
   #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   #Define Server
 
-  #Server
-  server <-(function(input, output) {  #5
+  # Server ----
+  server <- (function(input, output) {  #5
 
     # Reactive parameters
     # Spec = reactive({input$SPEC})  # 1=mouse; 2=human
@@ -1702,7 +1695,7 @@ app = function(){
 
   shinyApp(ui=ui, server=server, options=list(launch.browser=TRUE))
 
-}
+# }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Run app
