@@ -1,16 +1,9 @@
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Filename : app.R
-<<<<<<< HEAD
 # Use      : Shiny app for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-10-18
-=======
-# Use      : Shiny application for PK-platelet simulation
-# Author   : Tomas Sou
-# Created  : 2025-10-17
-# Updated  : 2025-11-08
->>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
+# Updated  : 2025-11-18
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -863,14 +856,8 @@ app = function(){
                      downloadButton(outputId="csvPK", label="CSV"),
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
-<<<<<<< HEAD
-                     h6("Developed by",
-                        tags$a(href="https://github.com/soutomas/RappPKPLT","Tomas Sou",target="_blank")
-                     ),
-=======
                      h6("Developed by",tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank"))
                      # tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
->>>>>>> 29e219420b8cdb82186bcbdfe23e9b0b42e7bc20
                    )
 
             ), # close column
