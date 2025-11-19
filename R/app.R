@@ -3,7 +3,7 @@
 # Use      : Shiny app for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-11-18
+# Updated  : 2025-11-19
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -69,12 +69,13 @@ DRUG  : 1 : 1=CGM
 $OMEGA
 @annotated
 //0 0 // No IIV
-IIVKA   : 0.9740 : 1 Ka CV = 98.7%
-IIVTLAG : 0.0480 : 2 Tlag CV = 21.9%
-IIVV1   : 0.1140 : 3 V1 CV = 33.7%
-IIVCL   : 0.4490 : 4 CL CV = 67.0%
+// CV = sqrt(exp(sigma^2)-1)
+IIVKA   : 0.6801 : 1 Ka CV = 98.7%
+IIVTLAG : 0.0468 : 2 Tlag CV = 21.9%
+IIVV1   : 0.1076 : 3 V1 CV = 33.7%
+IIVCL   : 0.3701 : 4 CL CV = 67.0%
 IIVQ    : 0.2500 : 5 Q CV = 50.0%
-IIVV2   : 4.0000 : 6 V2 CV = 200%
+IIVV2   : 1.6094 : 6 V2 CV = 200%
 //dummy
 IIVKtr  : 0.628  : Ktr
 IIVMTT  : 0.321  : MTT
@@ -143,206 +144,11 @@ IIVkSR       : 0 : dummy
 IIVSLP_PLTZ  : 0 : dummy
 "
 
-param_HDM_PLTv35 =
-  "
-$PARAM
-@annotated
-//Ref: 	V19_10no_occ_QC; Modelling Memo on 06-Jul-2022
-//PK HDM
-Ktr         : 6.28  : Transit compartment rate constant (1/h)
-MTT         : 0.812 : Mean transit time (h)
-KA          : 3.89  : First-order absorption rate constant (1/h)
-V1          : 116.0 : Apparent central Vd (V1/F; L)
-beta_WT_V1  : 0.888 : Body weight effect on central Vd, normalised to 70 kg
-CL          : 5.90  : Apparent clearance (CL/F; L/h)
-//dummy
-Q           : 0     : Apparent inter-comparmental clearance (Q/F; L/h)
-V2          : 1     : Apparent peripheral Vd (V2/F; L)
-TLAG        : 0     : Absorption lag time (h)
-//added
-DRUG : 2 : 2=HDM
-
-$OMEGA
-@annotated
-//0 0 // No IIV
-IIVKtr  : 0.382  : Ktr CV = 61.8%
-IIVMTT  : 0.108  : MTT CV = 32.8%
-IIVKA   : 2.016  : Ka CV = 142.0%
-//dummy
-IIVTLAG : 0      : Tlag
-IIVQ    : 0      : Q
-IIVV2   : 0      : V2
-
-$OMEGA @block @correlation
-@annotated
-IIVV1      : 0.0992       : V1 CV = 31.5%
-IIVCL      : 0.650 0.308  : CL CV = 55.5%; corr_V_Cl = 0.650
-
-$PARAM
-@annotated
-//Platelet model from v35_v34_propERR on 30-Nov-2022
-PLTZ        : 28.0     : Baseline platelet (G/L)
-MMT         : 177      : Mean maturation time of drug affected cells (h)
-SPW         : 0.145    : Systemic regulation (gamma)
-EMAX_PLT    : 0.000808 : Emax; or SLP for linear model
-EC50_PLT    : 0        : EC50 (ng/mL); set to 0 for linear model
-//GDF-15 model by Sebastien Lorenzo Mar2023
-EMAXG       : 61162.45 : SLP or EMAX for GDF15
-EC50G       : 388.86   : EC50 for GDF15 (ng/mL)
-GAMG        : 1.08     : gamma for GDF15
-GDFZ        : 2477.51  : Baseline concentration (pg/mL)
-//added
-kSR         : 0.0000964 : Added from v97 for testing R-comp
-KPRO        : -1       : First-order prolifeation rate constant of P1 platelet (1/h)
-KP5         : -1       : First-order elimination rate constant of P5 platelet (1/h)
-KP1         : 0        : First-order elimination rate constant of P1 platelet (1/h)
-TRTPLT      : 0        : 1=treat platelet
-TRTGDF      : 0        : 1=treat GDF-15
-//Covariates
-WT          : 70       : Body weight (kg)
-//dummy
-KOUT        : 0        : Turnover rate (1/h)
-KIN         : 0        : Production rate (pg/h)
-SLPD        : 0        : Drug direct thrombocytopaenia potency (mL/ng)
-SLPI        : 0        : Drug indirect thrombocytopaenia potency through effect compartment (mL/ng)
-ALP         : 0        : Platelet transfusion dose (G/L)
-KE0         : 0        : Effect compartment rate (1/h)
-SEP         : 0        : Indirect effect thrombocytopenia potency power; No IIV
-CFR         : 0        : Drug effect potency on systemic regulation (mL/ng)
-LPW         : 0        : Local regulation
-FU          : 1        : dummy
-HEM         : 0        : dummy
-MMTsolid    : 0        : dummy
-
-$OMEGA
-@annotated
-//Platelet model from v35_v34_propERR on 30-Nov-2022
-IIVPLTZ : 0.7465  : PLTZ CV = 86.4%
-IIVMMT  : 0.4529  : MMT CV = 67.3%
-IIVSPW  : 0.7797  : SPW CV = 88.3% (gamma)
-IIVEMAX : 0.5098  : EMAX_PLT or SLP CV = 71.4%
-//GDF-15 model by Sebastien Lorenzo Mar2023
-IIVEMAXG : 0.7396 : EMAXG CV = 86.0%
-IIVGDFZ  : 0.4761 : GDFZ CV = 69.0%
-//dummy
-IIVALP  : 0 : ALP
-IIVKE0  : 0 : Ke0
-IIVSLPD : 0 : SLPD
-IIVSLPI : 0 : SLPI
-IIVCFR  : 0 : CFR
-IIVLPW  : 0 : LPW
-IIVEC50 : 0 : EC50_PLT
-IIVKPRO : 0 : KPRO
-IIVKP5  : 0 : KP5
-IIVKOUT : 0 : Kout
-IIVKIN  : 0 : KIN
-IIVMMTsolid  : 0 : dummy
-IIVkSR       : 0 : dummy
-"
-
-param_HDM_PLTv97 =
-  "
-$PARAM
-@annotated
-//Ref: 	V19_10no_occ_QC; Modelling Memo on 06-Jul-2022
-//PK HDM
-Ktr         : 6.28  : Transit compartment rate constant (1/h)
-MTT         : 0.812 : Mean transit time (h)
-KA          : 3.89  : First-order absorption rate constant (1/h)
-V1          : 116.0 : Apparent central Vd (V1/F; L)
-beta_WT_V1  : 0.888 : Body weight effect on central Vd, normalised to 70 kg
-CL          : 5.90  : Apparent clearance (CL/F; L/h)
-//dummy
-Q           : 0     : Apparent inter-comparmental clearance (Q/F; L/h)
-V2          : 1     : Apparent peripheral Vd (V2/F; L)
-TLAG        : 0     : Absorption lag time (h)
-//added
-DRUG : 2 : 2=HDM
-
-$OMEGA
-@annotated
-//0 0 // No IIV
-IIVKtr  : 0.382  : Ktr CV = 61.8%
-IIVMTT  : 0.108  : MTT CV = 32.8%
-IIVKA   : 2.016  : Ka CV = 142.0%
-//dummy
-IIVTLAG : 0      : Tlag
-IIVQ    : 0      : Q
-IIVV2   : 0      : V2
-
-$OMEGA @block @correlation
-@annotated
-IIVV1      : 0.0992       : V1 CV = 31.5%
-IIVCL      : 0.650 0.308  : CL CV = 55.5%; corr_V_Cl = 0.650
-
-$PARAM
-@annotated
-//Platelet model from v97_v95_kSR on 10May2023
-PLTZ        : 1         : Baseline platelet (G/L)
-MMT         : 170       : Mean maturation time of drug affected cells (h)
-MMTsolid    : 518       : Mean maturation time of drug affected cells (h)
-SPW         : 0.0624    : Systemic regulation (gamma)
-EMAX_PLT    : 0.00192   : Emax; or SLP for linear model
-EC50_PLT    : 0         : EC50 (ng/mL); set to 0 for linear model
-kSR         : 0.0000964 : kSR resistance transition rate constant (1/h)
-//GDF-15 model by Sebastien Lorenzo Mar2023
-EMAXG       : 61162.45 : SLP or EMAX for GDF15
-EC50G       : 388.86   : EC50 for GDF15 (ng/mL)
-GAMG        : 1.08     : gamma for GDF15
-GDFZ        : 2477.51  : Baseline concentration (pg/mL)
-//added
-KPRO        : -1       : First-order prolifeation rate constant of P1 platelet (1/h)
-KP5         : -1       : First-order elimination rate constant of P5 platelet (1/h)
-KP1         : 0        : First-order elimination rate constant of P1 platelet (1/h)
-TRTPLT      : 0        : 1=treat platelet
-TRTGDF      : 0        : 1=treat GDF-15
-//Covariates
-WT          : 70       : Body weight (kg)
-HEM         : 1        : Population type: 1=HEM; 0=SOL
-//dummy
-KOUT        : 0        : Turnover rate (1/h)
-KIN         : 0        : Production rate (pg/h)
-SLPD        : 0        : Drug direct thrombocytopaenia potency (mL/ng)
-SLPI        : 0        : Drug indirect thrombocytopaenia potency through effect compartment (mL/ng)
-ALP         : 0        : Platelet transfusion dose (G/L)
-KE0         : 0        : Effect compartment rate (1/h)
-SEP         : 0        : Indirect effect thrombocytopenia potency power; No IIV
-CFR         : 0        : Drug effect potency on systemic regulation (mL/ng)
-LPW         : 0        : Local regulation
-FU          : 1        : dummy
-
-$OMEGA
-@annotated
-//Platelet model from v97_v95_kSR on 10May2023
-IIVPLTZ      : 0.0790  : PLTZ CV = 28.1%
-IIVMMT       : 0.6440  : MMT CV = 80.3%
-IIVMMTsolid  : 0.6839  : MMTsolid CV = 82.7%
-IIVSPW       : 2.1316  : SPW CV = 146% (gamma)
-IIVEMAX      : 1.5129  : EMAX_PLT or SLP CV = 123%
-IIVkSR       : 20.160  : kSR CV = 449%
-//GDF-15 model by Sebastien Lorenzo Mar2023
-IIVEMAXG : 0.7396 : EMAXG CV = 86.0%
-IIVGDFZ  : 0.4761 : GDFZ CV = 69.0%
-//dummy
-IIVALP  : 0 : ALP
-IIVKE0  : 0 : Ke0
-IIVSLPD : 0 : SLPD
-IIVSLPI : 0 : SLPI
-IIVCFR  : 0 : CFR
-IIVLPW  : 0 : LPW
-IIVEC50 : 0 : EC50_PLT
-IIVKPRO : 0 : KPRO
-IIVKP5  : 0 : KP5
-IIVKOUT : 0 : Kout
-IIVKIN  : 0 : KIN
-"
-
-# Platelet model v125
 param_HDM =
-  "
+"
 $PARAM
 @annotated
-//Ref: 	V19_10no_occ_QC; Modelling Memo on 06-Jul-2022
+//Ref: - V19_10no_occ_QC on 06-Jul-2022
 //PK HDM
 Ktr         : 6.28  : Transit compartment rate constant (1/h)
 MTT         : 0.812 : Mean transit time (h)
@@ -375,7 +181,7 @@ IIVCL      : 0.650 0.308  : CL CV = 55.5%; corr_V_Cl = 0.650
 
 $PARAM
 @annotated
-//Platelet model from v125_v119_kPLTZsol_fix0 on 12Jun2023
+//Platelet model - from v125_v119_kPLTZsol_fix0 on 12Jun2023
 PLTZ        : 1         : Baseline platelet (G/L)
 MMT         : 162       : Mean maturation time of drug affected cells (h)
 MMTsolid    : 591       : Mean maturation time of drug affected cells (h)
@@ -385,7 +191,7 @@ EC50_PLT    : 0         : EC50 (ng/mL); set to 0 for linear model
 kSR         : 0.0000507 : kSR resistance transition rate constant (1/h)
 KE0         : 0.000129 : Effect compartment rate (1/h); value from v125
 SLP_PLTZ    : 0.004180 : Effect on PLTZ; value from v125
-//GDF-15 model by Sebastien Lorenzo Mar2023
+//GDF-15 model - placeholder Mar2023
 EMAXG       : 61162.45 : SLP or EMAX for GDF15
 EC50G       : 388.86   : EC50 for GDF15 (ng/mL)
 GAMG        : 1.08     : gamma for GDF15
@@ -412,7 +218,7 @@ FU          : 1        : dummy
 
 $OMEGA
 @annotated
-//Platelet model from v125_v119_kPLTZsol_fix0 on 12Jun2023
+//Platelet model - from v125_v119_kPLTZsol_fix0 on 12Jun2023
 IIVPLTZ      : 0.0724  : PLTZ CV = 26.9%
 IIVMMT       : 0.6690  : MMT CV = 81.8%
 IIVMMTsolid  : 0.4340  : MMTsolid CV = 65.9%
@@ -421,7 +227,7 @@ IIVEMAX      : 0.7590  : EMAX_PLT or SLP CV = 87.1%
 IIVkSR       : 11.800  : kSR CV = 344%
 IIVKE0       : 24.400  : Ke0 CV = 494%
 IIVSLP_PLTZ  : 9.3030  : SLP_PLTZ CV = 305%
-//GDF-15 model by Sebastien Lorenzo Mar2023
+//GDF-15 model - placeholder Mar2023
 IIVEMAXG : 0.7396 : EMAXG CV = 86.0%
 IIVGDFZ  : 0.4761 : GDFZ CV = 69.0%
 //dummy
@@ -438,7 +244,7 @@ IIVKIN  : 0 : KIN
 "
 
 main =
-  "
+"
 
 $SIGMA @labels ERR
 0 //dummy
@@ -482,7 +288,7 @@ if(self.amt>0 && self.cmt!=1) dose = 0 ;
 
 double iPLTZ = PLTZ*exp(IIVPLTZ) ;
 double iMMT = MMT*exp(IIVMMT) ;
-if(HEM==0) iMMT = MMTsolid*exp(IIVMMTsolid) ;
+if(DRUG==2 & HEM==0) iMMT = MMTsolid*exp(IIVMMTsolid) ;
 double iKtrP = (3+1)/iMMT ;
 double iKpro = iKtrP ;
 if(KPRO>=0) iKpro = KPRO*exp(IIVKPRO) ;
@@ -695,13 +501,13 @@ app = function(){
                      collapsible = TRUE,
                      collapsed = TRUE,
                      tags$div(
-                       column(width = 6, selectInput(inputId = "DRUG",label = "Drug",choices = list("CGM"=1, "HDM"=2), selected=1))
+                       column(width = 6, selectInput(inputId = "DRUG",label = "Drug", choices = list("CGM"=1, "HDM"=2), selected=2))
                        # ,column(width = 12, checkboxInput(inputId = "KGD", label = "Dose per kg?", value = FALSE))
                        ,column(width = 6, selectInput(inputId = "ADM",label = "Admin",choices = list("Oral"=1, "IV"=2), selected=1))
                        ,column(width = 4, textInput(inputId = "DOSE",label = "Dose[mg]", value = 20))
                        ,column(width = 4, textInput(inputId = "NDOSE",label = "NDoses", value = 5))
                        ,column(width = 4, textInput(inputId = "TAU",label = "Tau[day]", value = 1))
-                       ,column(width = 12, textInput(inputId = "TDOSE", label = "Times [day] (add times by `,`)", value = "0,1,2,3,4,28,29,30,31,32,56,57,58,59,60,c(0,1,2,3,4,28,29,30,31,32,56,57,58,59,60)+28*3"))
+                       ,column(width = 12, textInput(inputId = "TDOSE", label = "Times [day] (add times by `,`)", value = ""))
                        ,column(width = 6, textInput(inputId = "KA",label = "Ka [1/h]", value = ""))
                        ,column(width = 6, textInput(inputId = "TLAG",label = "Tlag [h]", value = ""))
                        ,column(width = 6, textInput(inputId = "Ktr",label = "Ktr [1/h]", value = ""))
@@ -1038,37 +844,38 @@ app = function(){
       # Dosing event dataset
       # Evdata.mt1 = reactive({
       #   wt = Wt()
-      #   tau = input$TAU
+      #   tau = eval(parse(text=input$TAU))*24
       #   dura = Dura()
       #   dose = Dose()
-      #   adm = as.numeric(input$ADM)
-      #   ndose = ceiling(dura/tau)
+      #   adm = ifelse(input$ADM==1,"A1","A2")
+      #   ndose = eval(parse(text=input$NDOSE))
       #   idata = Idata()
-      # if(input$SS) ss = 1 else ss = 0
+      #   if(input$SS) ss = 1 else ss = 0
       #   ev1 = ev(amt=dose, addl=ndose-1, ii=tau, cmt=adm, tinf=input$INFH, ss=ss)  # cmt: 1=SC, 2=IV
       #   # ev1 = ev(amt=dose,addl=ndose-1,ii=tau,cmt=adm)  # cmt: 1=IV
       #   evall = seq(ev1)
-      #   evdata = assign_ev(list(evall),idata,evgroup="evarm")
+      #   evdata = ev_assign(list(evall),idata,evgroup="evarm")
       # })
 
       # Simulation
       set.seed(12345)
       out = reactive({
-        # evdata.all = Evdata.mt1()
+        # evdata = Evdata.mt1() |> dplyr::arrange(ID,time)
+        idata = Idata()
         # evdata.all = rbind(evdata2,evdata1)
-        # evdata = evdata.all %>% arrange(ID,time)
-        # idata = Idata()
+        #+++++
         tau = eval(parse(text=input$TAU))*24 # day => hr
         dose = Dose()*1000 # mg => mcg
         adm = ifelse(input$ADM==1,"A1","A2")
         # ndose = ceiling(dura/tau)
         ndose = eval(parse(text=input$NDOSE))
-        idata = Idata()
+        #++++++
         ss = 0
         if(input$SS) ss = 1
         evall = ev(amt=dose, addl=ndose-1, ii=tau, cmt=adm, ss=ss) # cmt: 1=oral, 2=IV
         tdose = eval(parse(text=paste0("c(",input$TDOSE,")")))*24 # day => hr
         if(length(tdose)>0) evall = ev(amt=dose, time=tdose, cmt=adm, ss=ss) # cmt: 1=oral, 2=IV
+
         if(input$PINF) talp = eval(parse(text=paste0("c(",input$TALP,")")))*24 # day => hr
         if(input$PINF) alp = eval(parse(text=input$ALP))
         if(input$PINF) evall = evall + ev(amt=alp, cmt="P5", time=talp, tinf=0.5) # 0.5 h transfusion
@@ -1118,6 +925,7 @@ app = function(){
             GAMG = ifelse(input$GAMG=="", param(mod)$GAMG, eval(parse(text=input$GAMG))),
           ) %>%
           mrgsim_df(delta=delta, end=dura, events=evall, obsonly=TRUE, tad=TRUE, hmax=0.1, atol=1e-10)
+          # mrgsim_df(delta=delta, end=dura, obsonly=TRUE, tad=TRUE, hmax=0.1, atol=1e-10)
       })
 
     }
@@ -1233,7 +1041,7 @@ app = function(){
         #   oob = squish,
         # )}+
         labs(
-          title = ifelse(input$DRUG==1,"CGM097","Drug")
+          title = ifelse(input$DRUG==1,"CGM","HDM")
           ,subtitle = stitle
           ,caption = cap
           ,x = "Time [day]"
