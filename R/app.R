@@ -3,7 +3,7 @@
 # Use      : Shiny app for PK-platelet simulation
 # Author   : Tomas Sou
 # Created  : 2025-10-17
-# Updated  : 2025-11-19
+# Updated  : 2026-01-20
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Notes
 # - na
@@ -501,7 +501,8 @@ app = function(){
                      collapsible = TRUE,
                      collapsed = TRUE,
                      tags$div(
-                       column(width = 6, selectInput(inputId = "DRUG",label = "Drug", choices = list("CGM"=1, "HDM"=2), selected=2))
+                       column(width = 6, selectInput(inputId = "DRUG",label = "Drug", choices = list("HDM"=2), selected=2))
+                       # column(width = 6, selectInput(inputId = "DRUG",label = "Drug", choices = list("CGM"=1, "HDM"=2), selected=2))
                        # ,column(width = 12, checkboxInput(inputId = "KGD", label = "Dose per kg?", value = FALSE))
                        ,column(width = 6, selectInput(inputId = "ADM",label = "Admin",choices = list("Oral"=1, "IV"=2), selected=1))
                        ,column(width = 4, textInput(inputId = "DOSE",label = "Dose[mg]", value = 20))
@@ -662,7 +663,9 @@ app = function(){
                      downloadButton(outputId="csvPK", label="CSV"),
                      # Help text
                      h6("Hint: Refresh browser to reset values"),
-                     h6("Developed by",tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank"))
+                     h6("Developed by",
+                        tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
+                     ),
                      # tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
                    )
 
@@ -746,15 +749,21 @@ app = function(){
                        box(
                          width = NULL,
                          background = "black",
-                         title = "Reference",
+                         title = "References",
                          status = NULL,
                          solidHeader = TRUE,
                          collapsible = TRUE,
                          align = "center",
-                         h4("For CGM097:"),
-                         h5("Bauer et al. (2021). Br J Cancer. 2021 Aug;125(5):687-98. PMID: 34140638"),
-                         h5("`Pharmacokinetic-pharmacodynamic guided optimisation of dose and schedule of CGM097, an HDM2 inhibitor, in preclinical and clinical studies`"),
-                         tags$a(href="https://pubmed.ncbi.nlm.nih.gov/34140638/","https://pubmed.ncbi.nlm.nih.gov/34140638/",target="_blank")
+                         h4("For HDM:"),
+                         h5("Sou et al. (2026). CPT Pharmacometrics Syst Pharmacol. 2026. In press."),
+                         h5("`Population PK/PD modelling for evaluation of intertwining effects of drug and disease on thrombocytopenia in acute leukaemias`"),
+                         tags$a(href="","Pending",target="_blank"),
+                         # br(),
+                         # br(),
+                         # h4("For CGM:"),
+                         # h5("Bauer et al. (2021). Br J Cancer. 2021 Aug;125(5):687-98. PMID: 34140638"),
+                         # h5("`Pharmacokinetic-pharmacodynamic guided optimisation of dose and schedule of CGM097, an HDM2 inhibitor, in preclinical and clinical studies`"),
+                         # tags$a(href="https://pubmed.ncbi.nlm.nih.gov/34140638/","https://pubmed.ncbi.nlm.nih.gov/34140638/",target="_blank")
                        )
                      )
                    )
@@ -777,7 +786,7 @@ app = function(){
                    collapsed = FALSE,
 
                    h6("Developed by",
-                     tags$a(href="https://github.com/soutomas/RappPKPLT","Tomas Sou",target="_blank")
+                     tags$a(href="https://github.com/soutomas","Tomas Sou",target="_blank")
                    ),
                  )
           ),
